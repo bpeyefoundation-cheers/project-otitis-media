@@ -1,1 +1,1 @@
-# project-oitis-media
+# project-otitis-media
