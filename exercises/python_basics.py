@@ -35,6 +35,33 @@ print(b)
 c=a[-6:]
 print(c)
 
+print(len(a))
+
+print(a[1::2])
+d=[]
+for element in a:
+     c=element*element
+     d.append(c)
+print(d)
+l=[]
+import math
+for element in d:
+    f=math.sqrt(element)
+    l.append(f)
+print(l)
+# list comprehension
+a=[i for i in range(10) if i%2==0]
+print(a)
+a=[(i,j) for i in range(10) for j in range(i)]
+print(a)
+
+project_dict={ 
+     "otitis_media_member":["ayushma","sonu","manish"],
+     "oral_member":["biru","prasanna"]
+     }
+print(project_dict["otitis_media_member"][0])
+
+
 
      
      
