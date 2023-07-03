@@ -30,14 +30,21 @@
 #     else :
 #         print(i)
 
-
+#printing pattern
 # for i in range(1,6):
 #     for j in range(1, 1+i):
 #         print(j, end=' ') 
 #     print(' ')
 
+#print list
+# a=[1,2,3,4,5]
+# print(a)
 
-a=[1,2,3,4,5]
+
+#print list using loop
+a=[]
+for i in  range(1, 11):
+    a.append(pow(i,2))
 print(a)
 
 
