@@ -32,6 +32,10 @@ print(a[-2])
 b=a[:5]
 print(b)
 
+c=a[-6:]
+print(c)
+
+
      
      
       
