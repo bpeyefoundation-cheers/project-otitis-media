@@ -69,7 +69,9 @@ for patient in bp_eye_daily_patient_enrollment:
      bp_eye_daily_patient_enrollment[patient]+=50
 print(bp_eye_daily_patient_enrollment)
 
-
+for k in bp_eye_daily_patient_enrollment.keys():
+     bp_eye_daily_patient_enrollment[k]=bp_eye_daily_patient_enrollment[k]+10
+print(bp_eye_daily_patient_enrollment)
 
 
      
