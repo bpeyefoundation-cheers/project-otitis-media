@@ -6,12 +6,24 @@
 # sum = add(5,6)
 # print(sum)
 
-#list
+# write a function that takes a list as argument and returns another list where each element of the new list is double
 
-first_list=[1,2,3,4,5]
-def create_list(first_list):
-    new_list=[i*2 for i in first_list]
-    return new_list
+# first_list=[1,2,3,4,5]
+# def create_list(first_list):
+#     new_list=[i*2 for i in first_list]
+#     return new_list
 
-double_valued_list = create_list(first_list)  
-print(double_valued_list)  
+# double_valued_list = create_list(first_list)  
+# print(double_valued_list)  
+
+
+# write a function that takes two lists as argument and returns another list where each element of the new list is the sum of corresponding element in the given lists
+
+list1 = [1,2,3,4,5]
+list2 = [6,7,8,9,10]
+def add_lists(list1, list2):
+    add_elements = [list1[i] + list2[i] for i in range(0, len(list1))]
+    return add_elements
+
+new_list = add_lists(list1, list2)
+print(new_list)
