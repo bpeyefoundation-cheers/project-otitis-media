@@ -60,6 +60,15 @@ project_dict={
      "oral_member":["biru","prasanna"]
      }
 print(project_dict["otitis_media_member"][0])
+bp_eye_daily_patient_enrollment = {
+    'ENT': 100,
+    'dental': 50,
+    'eye': 200 
+}
+for patient in bp_eye_daily_patient_enrollment:
+     bp_eye_daily_patient_enrollment[patient]+=50
+print(bp_eye_daily_patient_enrollment)
+
 
 
 
