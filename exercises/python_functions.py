@@ -25,10 +25,10 @@ print(new_list)'''
 '''l1=[1,2,3,4]
 l2=[5,6,7,8]     
 def sum_of_list(list1, list2):
-    new_list=[list1[i]+list2[i] for i in range(0,len(list1))]
+    added_new_list=[list1[i]+list2[i] for i in range(len(list1))]
     return new_list
 
-new_list=sum_of_list(l1,l2)
+added_new_list=sum_of_list(l1,l2)
 print(new_list )'''
 
 
@@ -39,4 +39,23 @@ print(new_list )'''
             print(j , end= ' ')
         print('')
 
-pattern_print(5)'''
+pattern_print(10)'''
+
+'''list1=[1,2,3,4]
+list2=[5,6,7,8]
+list3=[1,1,1,1]
+def add_two_list(list_1, list_2, list_3):
+    #zip creates a tuple of the corresponding items of the two differeren lists
+    sum= [a+b+c for a,b,c in zip(list_1, list_2, list_3)]
+    return sum
+
+new_added_list= add_two_list(list1, list2, list3)
+print(new_added_list)'''
+
+
+
+
+#gives the value and index of the given list 
+'''list1=[1,2,3,4]
+for x in enumerate(list1):
+    print(x)'''
