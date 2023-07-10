@@ -23,17 +23,21 @@ def get_image_label_pairs(image_dir:str, label:str)  -> tuple:
     labels = [label] * len(filenames)
     return filenames, labels
 
-def save_as_csv(image_paths, labels, outfile):
+
     
-    """ assume image_paths = [file1, file2, ...filen] and labels = [label1,label2...labelk] 
-	save a csv file with filename outfile such that each row contains 
-	file1, label1 
-	file2, label2 
-	"""
+   
+def save_as_csv(image_paths, labels):
+    """Assume image_paths = [file1, file2, ...filen] and labels = [label1,label2...labelk] 
+    Save a CSV file with a default name 'output.csv' such that each row contains:
+    file1, label1
+    file2, label2
+    """
+
+    outfile = 'output.csv'  
 
     with open(outfile, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerow(['File', 'Label'])  # Write the header row
+        writer.writerow(['File', 'Label']) 
 
         for image_path, label in zip(image_paths, labels):
             writer.writerow([image_path, label])

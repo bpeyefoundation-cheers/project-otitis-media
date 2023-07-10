@@ -13,10 +13,4 @@ def idx_to_label(idx:int):
 	label_map = {0: 'aom', 1: 'csom', 2: 'myringosclerosis',3: 'Normal'}
 	return label_map.get(idx)
     
-label = 'aom'
-label_idx = label_to_idx(label)
-print(label_idx)  # Output: 1
-
-idx = 2
-idx_label = idx_to_label(idx)
-print(idx_label)  # Output: 'versicolor'
+  
