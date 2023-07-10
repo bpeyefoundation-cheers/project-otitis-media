@@ -71,20 +71,20 @@ bp_eye_daily_patient_enrollment = {
 
 
 # increase all the enrolled patient  in patient enrollment dict by 50
-for patient in bp_eye_daily_patient_enrollment:
-    bp_eye_daily_patient_enrollment[patient]+= 50
-print(bp_eye_daily_patient_enrollment)
+# for patient in bp_eye_daily_patient_enrollment:
+#     bp_eye_daily_patient_enrollment[patient]+= 50
+# print(bp_eye_daily_patient_enrollment)
 
 
 #alternative
-for k, v in bp_eye_daily_patient_enrollment.items():
-    bp_eye_daily_patient_enrollment[k] = v+50
-print(bp_eye_daily_patient_enrollment)
+# for k, v in bp_eye_daily_patient_enrollment.items():
+#     bp_eye_daily_patient_enrollment[k] = v+50
+# print(bp_eye_daily_patient_enrollment)
 
 #using keys
-for k in bp_eye_daily_patient_enrollment.keys():
-    bp_eye_daily_patient_enrollment[k] = bp_eye_daily_patient_enrollment[k]+50
-print(bp_eye_daily_patient_enrollment)
+# for k in bp_eye_daily_patient_enrollment.keys():
+#     bp_eye_daily_patient_enrollment[k] = bp_eye_daily_patient_enrollment[k]+50
+# print(bp_eye_daily_patient_enrollment)
 
 
 
