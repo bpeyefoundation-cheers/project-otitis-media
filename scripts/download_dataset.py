@@ -14,7 +14,7 @@ if not shutil.which("gdown"):
 file_id = "1Rz3mV7xTxC7rapDAxoozrLQKiHlTBRfT"
 
 # Set the destination folder
-destination_folder = "datasets"
+destination_folder = "data"
 
 # Create the destination folder if it doesn't exist
 if not os.path.exists(destination_folder):
