@@ -50,10 +50,10 @@ if __name__ == "__main__":
         save_as_csv(x, y, "data/data.csv")
 
 
-# file= pd.read_csv('data/data.csv')
-# print(file.head())
+    # file= pd.read_csv('data/data.csv')
+    # print(file.head())
 
-x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, test_size=0.2)
-save_as_csv(x_train, y_train, "data/train.csv")
-save_as_csv(x_test,y_test, "data/test.csv")
+    x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, test_size=0.2)
+    save_as_csv(x_train, y_train, "data/train.csv")
+    save_as_csv(x_test,y_test, "data/test.csv")
 
