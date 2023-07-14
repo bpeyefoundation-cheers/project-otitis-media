@@ -42,28 +42,28 @@ def save_as_csv(image_paths, labels, outfile):
             writer.writerow([image_path, label])
 
 
-# if __name__=='__main__':
-#         images_aom,labels_aom=get_image_label_pairs('data\middle-ear-dataset/aom','aom')
-#         images_csom,labels_csom=get_image_label_pairs('data\middle-ear-dataset/csom','csom')
-#         images_myringosclerosis,labels_myringosclerosis=get_image_label_pairs('data\middle-ear-dataset/myringosclerosis','myringosclerosis')
-#         images_Normal,labels_Normal=get_image_label_pairs('data\middle-ear-dataset/Normal','Normal')
-#         # print(len(ou))
-#         # print(out[0])
-#         # print(out[1])
+if __name__=='__main__':
+        images_aom,labels_aom=get_image_label_pairs('data\middle-ear-dataset/aom','aom')
+        images_csom,labels_csom=get_image_label_pairs('data\middle-ear-dataset/csom','csom')
+        images_myringosclerosis,labels_myringosclerosis=get_image_label_pairs('data\middle-ear-dataset/myringosclerosis','myringosclerosis')
+        images_Normal,labels_Normal=get_image_label_pairs('data\middle-ear-dataset/Normal','Normal')
+        # print(len(ou))
+        # print(out[0])
+        # print(out[1])
 
-#         save_as_csv(images_aom,labels_aom,'data/aom.csv')
-#         save_as_csv(images_csom,labels_csom,'data/csom.csv')
-#         save_as_csv(images_myringosclerosis,labels_myringosclerosis,'data/myringosclerosis.csv')
-#         save_as_csv(images_Normal,labels_Normal,'data/Normal.csv')
+        save_as_csv(images_aom,labels_aom,'data/aom.csv')
+        save_as_csv(images_csom,labels_csom,'data/csom.csv')
+        save_as_csv(images_myringosclerosis,labels_myringosclerosis,'data/myringosclerosis.csv')
+        save_as_csv(images_Normal,labels_Normal,'data/Normal.csv')
 
-x = []
-y = []
-folders = ["aom", "csom", "myringosclerosis", "Normal"]
-for i in folders:
-    images_path, label = get_image_label_pairs(f"data\middle-ear-dataset/{i}", f"{i}")
-    x.extend(images_path)
-    y.extend(label)
-save_as_csv(x, y, "data\middle-ear-dataset/test.csv")
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
-save_as_csv(x_train, y_train, "data/train.csv")
-save_as_csv(x_test, y_test, "data/test.csv")
+        x = []
+        y = []
+        folders = ["aom", "csom", "myringosclerosis", "Normal"]
+        for i in folders:
+            images_path, label = get_image_label_pairs(f"data\middle-ear-dataset/{i}", f"{i}")
+            x.extend(images_path)
+            y.extend(label)
+        save_as_csv(x, y, "data\middle-ear-dataset/test.csv")
+        x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
+        save_as_csv(x_train, y_train, "data/train.csv")
+        save_as_csv(x_test, y_test, "data/test.csv")
