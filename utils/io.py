@@ -37,17 +37,16 @@ def save_as_csv(img_path: str, label:str, outfile):
 
 folder= ['aom', 'csom', 'myringosclerosis', 'Normal']
 
-if __name__ == '__main__':
     
-    x=[]
-    y=[]
-    for i in folder:
-        path= f'data/middle-ear-dataset/{i}'
-        images, label=get_image_label_pairs(path, f'{i}')
-        x.extend(images)
-        y.extend(label)
-        
-        save_as_csv(x, y, 'data/data.csv')  
+x=[]
+y=[]
+for i in folder:
+    path= f'data/middle-ear-dataset/{i}'
+    images, label=get_image_label_pairs(path, f'{i}')
+    x.extend(images)
+    y.extend(label)
+    
+    save_as_csv(x, y, 'data/data.csv')  
 
 x_train, x_test, y_train, y_test= train_test_split(x,y, stratify= y,test_size=0.2, random_state=42)
 save_as_csv(x_train, y_train, 'data/trains.csv')
