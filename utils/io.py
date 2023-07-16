@@ -33,9 +33,11 @@ def read_as_csv(csv_file):
     labels= []
     with open(csv_file , 'r') as f:
         reader = csv.reader(f)
-        for i in reader:
-            image_path= reader.readrows[0]
-            labels= reader.readrows[1]
+        next(reader)
+        for row in reader:
+           image_path.append(row[0])
+           labels.append(row[1])
+    return image_path, labels
             
 # if __name__ == '__main__':
 #     images , labels= get_image_label_pairs('data\middle-ear-dataset/aom', 'aom')
