@@ -28,7 +28,15 @@ def save_as_csv(img_path: str, label: str, outfile):
         for image_path, label in zip(img_path, label):
             writer.writerow([image_path, label])
 
-
+def read_as_csv(csv_file):
+    image_path= []
+    labels= []
+    with open(csv_file , 'r') as f:
+        reader = csv.reader(f)
+        for i in reader:
+            image_path= reader.readrows[0]
+            labels= reader.readrows[1]
+            
 # if __name__ == '__main__':
 #     images , labels= get_image_label_pairs('data\middle-ear-dataset/aom', 'aom')
 #     images_1 , labels_1 = get_image_label_pairs('data\middle-ear-dataset/csom', 'csom')
