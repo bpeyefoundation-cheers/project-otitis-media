@@ -64,7 +64,8 @@ if __name__ == "__main__":
     image_files = os.listdir(DATA_DIR)
     n_rows=4
     n_cols=3
-    file_path,labels=get_image_label_pairs(DATA_DIR,'aom')
+    LABEL='csom'
+    file_path,labels=get_image_label_pairs(DATA_DIR,LABEL)
     # Create a 4x3 grid of subplots
     # fig, axes = plt.subplots(n_rows, n_cols, figsize=(5, 5))
     # idx=0
