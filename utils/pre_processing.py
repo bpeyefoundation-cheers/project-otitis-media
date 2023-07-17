@@ -1,15 +1,45 @@
-from PIL import Image 
+from PIL import Image, ImageOps
 import matplotlib.pyplot as plt
 import numpy as np
 from utils.io import list_files, get_image_label_pairs, read_as_csv
 from os.path import join 
 
-def read_image(image_path: str , size:tuple=(256,256)) ->np.ndarray:
+
+def read_image(image_path: str,mode:str,size:tuple=(256,256) ) ->np.ndarray:
     """ reads image from the given path and returns as a numpy array
+    TODO: resize the image and implement the mode of zoom or paddding 
+    args:
+    -----
+    image_path: the image which we want to read
+    mode: either 'zoom' or 'pad'
+    size:the size of the image we want to set to
     """
 
     image = Image.open(image_path)
-    image= image.resize(size)
+    #image= image.resize(size)
+    height, width= image.size
+  
+    if mode == "padding":
+       if height== width:
+         pass
+       else:
+        image=ImageOps.pad(image, (256, 256), color=None, centering=(0.5, 0.5))
+    
+    if mode== "zoom":
+        diff= height-width
+        if diff>0:
+            right = width
+            (left, upper, right, lower) = (0, diff//2, right, height-(diff//2))
+            image= image.crop((left, upper, right, lower))
+           
+             
+        else:
+            lower= height
+            diff = abs(diff)
+            (left, upper, right, lower) = (diff/2, 0, width-(diff//2), lower)
+            image = image.crop((left, upper, right, lower))
+        print(image.size) 
+    image = image.resize((256,256))     
     img_array= np.asarray(image)
     return img_array
   
@@ -27,7 +57,7 @@ def display_grid(image_dir:str, images:list, labels:list, n_rows:int, n_cols:int
                 # image= new_image_list[index]
                 data_path= join(image_dir, labels[index], images[index])
                
-                image_array = read_image(data_path)
+                image_array = read_image(data_path, "zoom")
                 ax[i][j].imshow(image_array)
                 
                 ax[i,j].axis('off')
