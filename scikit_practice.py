@@ -1,5 +1,6 @@
 import numpy as np
 from sklearn.linear_model import LinearRegression as LR
+
 import matplotlib.pyplot as plt
 
 x_train= np.linspace(0,50 ,51, dtype=int).reshape(-1,1)

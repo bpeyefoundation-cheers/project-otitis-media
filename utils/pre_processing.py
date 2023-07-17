@@ -4,14 +4,15 @@ import numpy as np
 from utils.io import list_files, get_image_label_pairs
 from os.path import join 
 
-def read_image(image_path: str) ->np.ndarray:
+def read_image(image_path: str , size:tuple=(256,256)) ->np.ndarray:
     """ reads image from the given path and returns as a numpy array
     """
+
     image = Image.open(image_path)
-    
+    image= image.resize(size)
     img_array= np.asarray(image)
-    
     return img_array
+  
 def display_grid(image_dir:str, images:list, labels:list, n_rows:int, n_cols:int, title:str, fig_size:tuple=(10,10)):
       """display grid of images with their labels"""
     #   image_paths= list_files(image_dir)
