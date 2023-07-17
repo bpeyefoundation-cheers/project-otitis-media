@@ -4,8 +4,10 @@ from sklearn.model_selection import train_test_split
 
 
 
+
 def list_files(dir: str, file_extension: str) -> list:
     """given a dorectory, list all files with given extension"""
+
 
     if not os.path.isdir(dir):
         return None
@@ -48,6 +50,22 @@ def read_as_csv(csv_file):
 
 folder = ["aom", "csom", "myringosclerosis", "Normal"]
 
+
+    
+# x=[]
+# y=[]
+# for i in folder:
+#     path= f'data/middle-ear-dataset/{i}'
+#     images, label=get_image_label_pairs(path, f'{i}')
+#     x.extend(images)
+#     y.extend(label)
+    
+#     save_as_csv(x, y, 'data/data.csv')  
+
+# x_train, x_test, y_train, y_test= train_test_split(x,y, stratify= y,test_size=0.2, random_state=42)
+# save_as_csv(x_train, y_train, 'data/trains.csv')
+# save_as_csv(x_test, y_test, 'data/test.csv')
+
 if __name__ == "__main__":
     x = []
     y = []
@@ -58,6 +76,7 @@ if __name__ == "__main__":
         y.extend(label)
 
         save_as_csv(x, y, "data/data.csv")
+
 
 
     # file= pd.read_csv('data/data.csv')
