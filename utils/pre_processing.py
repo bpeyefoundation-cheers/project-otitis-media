@@ -32,22 +32,35 @@ if __name__ == "__main__":
     # plt.title("csom")
     
     # plt.show()
-    DATA_DIR = "data\middle-ear-dataset\csom"
+    DATA_DIR = "data/middle-ear-dataset/csom"
     
     image_paths = list_files(DATA_DIR, '')
     
     new_image_list= image_paths[0 : 12]
-    fig , ax = plt.subplots(nrows =  1, ncols=12 , figsize= (10 , 10))   
-    for i, image_path  in enumerate(new_image_list):
-        
+    fig , ax = plt.subplots(nrows =  3, ncols=4 , figsize= (10 , 10))   
+    # for i, image_path  in enumerate(new_image_list):
+    
+    i=0
+    j=0
+    for image_path in new_image_list:
+
         data_path= join(DATA_DIR, image_path)
         image = read_image(data_path)
-        ax[i].imshow(image)
+        ax[i][j].imshow(image)
+        j= j+1
+        if j ==4 :
+            i=i+1
+            j=0
+    plt.show()
+        
+            
+   
+        
         
         
    
 
-    plt.show()
+    
         
         
         

@@ -28,3 +28,4 @@ x_train, x_test , y_train , y_test= train_test_split(x , y, test_size=0.2 , rand
 save_as_csv(x_train , y_train, 'data/train.csv')
 save_as_csv(x_test , y_test , "data/test.csv")
 
+
