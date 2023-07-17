@@ -1,7 +1,7 @@
 from PIL import Image 
 import matplotlib.pyplot as plt
 import numpy as np
-from utils.io import list_files, get_image_label_pairs
+from utils.io import list_files, get_image_label_pairs, read_as_csv
 from os.path import join 
 
 def read_image(image_path: str) ->np.ndarray:
@@ -24,7 +24,7 @@ def display_grid(image_dir:str, images:list, labels:list, n_rows:int, n_cols:int
         for j in range(n_cols):
                 
                 # image= new_image_list[index]
-                data_path= join(image_dir, images[index])
+                data_path= join(image_dir, labels[index], images[index])
                
                 image_array = read_image(data_path)
                 ax[i][j].imshow(image_array)
@@ -51,31 +51,33 @@ if __name__ == "__main__":
     # #remove xticks and yticks
     # plt.xticks([])
     # plt.yticks([])
-    
     # #set title
     # plt.title("csom")
-    
     # plt.show()
-    DATA_DIR = "data\middle-ear-dataset\csom"
-    LABEL= "csom"
+
+
+
+    # DATA_DIR = "data/middle-ear-dataset/aom"
+    # LABEL= "aom"
+    DATA_DIR= "data/middle-ear-dataset"
     n_rows=3
-    n_cols= 4
-    image_path, labels= get_image_label_pairs(DATA_DIR, LABEL)
+    n_cols= 3
+    LABEL= "middle-ear-dataset"
+    image_path, labels= read_as_csv("data/test.csv")
+    
+    #get_image_label_pairs(DATA_DIR, LABEL)
     
     display_grid(DATA_DIR, image_path , labels , n_rows, n_cols ,LABEL)
     
-    new_image_list= image_path[0 : 12]
-    fig , ax = plt.subplots(nrows =  1, ncols=12 , figsize= (10 , 10))   
-    for i, image_path  in enumerate(new_image_list):
+    # new_image_list= image_path[0 : 12]
+    # fig , ax = plt.subplots(nrows =  1, ncols=12 , figsize= (10 , 10))   
+    # for i, image_path  in enumerate(new_image_list):
         
-        data_path= join(DATA_DIR, image_path)
-        image = read_image(data_path)
-        ax[i].imshow(image)
+    #     data_path= join(DATA_DIR, image_path)
+    #     image = read_image(data_path)
+    #     ax[i].imshow(image)
         
-        
-   
-
-    plt.show()
+    # plt.show()
         
         
         
