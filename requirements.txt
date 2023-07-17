@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 39365474c86a995d4d87233d09241cf85939299e
 numpy
 scikit-learn==1.2.1
 matplotlib==3.7.2
