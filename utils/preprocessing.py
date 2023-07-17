@@ -22,15 +22,23 @@ def read_image(image_path: str,mode:str,resize:tuple=(256,256)) -> np.ndarray:
     else:
         
         if mode=='zoom':
+            # left=0
+            # right=0
+            # upper=0
+            # lower=0
             if height<width:
                 diff=width-height
-            
                 left=diff//2
                 right=width-diff//2
+                top=0
+                bottom=height
             elif width<height:
                 diff=height-width
+                left=0
+                right=width
                 upper=diff//2
                 lower=height-upper
+
 
             new_image=image.crop((left,right,upper,lower))
         elif mode=='padding':
@@ -52,7 +60,7 @@ def display_grid(DATA_DIR,image_files,labels,n_rows,n_cols,title,figsize=(10,10)
     for i in range(n_rows):
         for j in range(n_cols):
             file_path=os.path.join(DATA_DIR,image_files[idx])
-            img_arr=read_image(file_path,mode='padding')
+            img_arr=read_image(file_path,mode='zoom')
             
 			  # Display the image in the current subplot
             axes[i, j].imshow(img_arr)
