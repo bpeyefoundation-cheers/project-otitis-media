@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image,ImageOps
 import os
 import matplotlib.pyplot as plt
 import numpy as np
@@ -7,9 +7,48 @@ from os.path import join
 
 
 
-def read_image(image_path: str) -> np.ndarray:
+
+def read_image(image_path: str,mode:str,resize:tuple=(256,256)) -> np.ndarray:
+    """
+    image_path:str file_path of the image which we want
+    mode:str of either preprocessing or zoom.The image is either zoomed in or padded a the border
+    """
+   
     image = Image.open(image_path)
-    img_array = np.asarray(image)
+    print(image.size)
+    height,width=image.size
+    if height==width:
+         pass
+    else:
+        
+        if mode=='zoom':
+            # left=0
+            # right=0
+            # upper=0
+            # lower=0
+            if height<width:
+                diff=width-height
+                left=diff//2
+                right=width-diff//2
+                top=0
+                bottom=height
+            elif width<height:
+                diff=height-width
+                left=0
+                right=width
+                upper=diff//2
+                lower=height-upper
+
+
+            new_image=image.crop((left,right,upper,lower))
+        elif mode=='padding':
+        
+            image=ImageOps.pad(image, size=(256,256), centering=(0.5, 0.5))
+   
+
+    
+    new_image=image.resize(resize)
+    img_array = np.asarray(new_image)
     return img_array
 
 def display_grid(DATA_DIR,image_files,labels,n_rows,n_cols,title,figsize=(10,10)):
@@ -21,7 +60,7 @@ def display_grid(DATA_DIR,image_files,labels,n_rows,n_cols,title,figsize=(10,10)
     for i in range(n_rows):
         for j in range(n_cols):
             file_path=os.path.join(DATA_DIR,image_files[idx])
-            img_arr=read_image(file_path)
+            img_arr=read_image(file_path,mode='zoom')
             
 			  # Display the image in the current subplot
             axes[i, j].imshow(img_arr)
@@ -60,7 +99,7 @@ if __name__ == "__main__":
     # plt.yticks([])
     # set title
 
-    DATA_DIR = "data/middle-ear-dataset/aom"
+    DATA_DIR = "data/middle-ear-dataset/csom"
     image_files = os.listdir(DATA_DIR)
     n_rows=4
     n_cols=3
