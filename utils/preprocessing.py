@@ -21,16 +21,18 @@ def read_image(image_path : str , mode:str ,size = (256, 256) ) -> np.ndarray :
     print(image.size)
     height = image.height
     width = image.width
-    left = 0
-    top = 0
+   
     right = image.width
     bottom = image.height
-    print(height, width)
+   
     if image.height == image.width :
          mode = None
     elif mode == 'zoom':
         if height > width :
+            
              size_diff = height - width
+             left =0
+             right= width
              top = top - (size_diff/2)
              bottom = bottom - (size_diff/2)
             #  print(image.size)
@@ -41,7 +43,7 @@ def read_image(image_path : str , mode:str ,size = (256, 256) ) -> np.ndarray :
             #  print(image.size)
              
         zoomed_image = image.crop((left, top , right, bottom))
-
+        print(image.size)
     elif mode == 'padding' :
         padded_image =ImageOps.pad(image, (256 ,256), color =None , centering = (0.5 , 0,5))
         # print(image.size)
@@ -55,29 +57,6 @@ def read_image(image_path : str , mode:str ,size = (256, 256) ) -> np.ndarray :
     img_array = np.asarray(image)
     return img_array
 
-def display_grid(image_dir:str, images:list, labels:list, n_rows:int, n_cols:int, title:str, fig_size:tuple=(10,10)):
-      """display grid of images with their labels"""
-    #   image_paths= list_files(image_dir)
-    #   no_of_images= n_rows * n_cols
-    #   new_image_list= image_paths[0 : no_of_images]
-      fig , ax = plt.subplots(n_rows, n_cols , figsize=fig_size) 
-      fig.suptitle(title)
-      index = 0
-      for i in range(n_rows):
-        for j in range(n_cols):
-                
-                # image= new_image_list[index]
-                data_path= join(image_dir, labels[index], images[index])
-               
-                image_array = read_image(data_path , 'padding')
-                ax[i][j].imshow(image_array)
-                
-                ax[i,j].axis('off')
-                ax[i,j].set_title(labels[index])
-                
-                
-                index += 1
-      plt.show()
 
 
 
