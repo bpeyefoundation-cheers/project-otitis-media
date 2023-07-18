@@ -1,9 +1,34 @@
 from PIL import Image, ImageOps
 import matplotlib.pyplot as plt
 import numpy as np
-from utils.io import list_files, get_image_label_pairs, read_as_csv
-from os.path import join 
+#from os.path import join 
+#from viz.visualization import display_grid
+import os
 
+
+label_map={
+  "aom":1,
+  "csom":2,
+  "myringosclerosis":3,
+  "Normal":4
+}
+
+index_to_label_dict= { index:label for label,index in label_map.items()}
+def label_to_index( label:str):
+  if label not in label_map:
+    raise KeyError("label in not valid")
+  return label_map[label]
+
+def index_to_label( inx:int):
+  if inx not in index_to_label_dict:
+    raise KeyError("index is not valid")
+  return index_to_label_dict[inx]
+  
+#  (list(my_dict.keys())
+#       [list(my_dict.values()).index(100)])
+
+ 
+  
 
 def read_image(image_path: str,mode:str,size:tuple=(256,256) ) ->np.ndarray:
     """ reads image from the given path and returns as a numpy array
@@ -36,40 +61,23 @@ def read_image(image_path: str,mode:str,size:tuple=(256,256) ) ->np.ndarray:
         else:
             lower= height
             diff = abs(diff)
-            (left, upper, right, lower) = (diff/2, 0, width-(diff//2), lower)
+            (left, upper, right, lower) = (diff//2, 0, width-(diff//2), lower)
             image = image.crop((left, upper, right, lower))
         print(image.size) 
     image = image.resize((256,256))     
     img_array= np.asarray(image)
     return img_array
+
+
   
-def display_grid(image_dir:str, images:list, labels:list, n_rows:int, n_cols:int, title:str, fig_size:tuple=(10,10)):
-      """display grid of images with their labels"""
-    #   image_paths= list_files(image_dir)
-    #   no_of_images= n_rows * n_cols
-    #   new_image_list= image_paths[0 : no_of_images]
-      fig , ax = plt.subplots(n_rows, n_cols , figsize=fig_size) 
-      fig.suptitle(title)
-      index = 0
-      for i in range(n_rows):
-        for j in range(n_cols):
-                
-                # image= new_image_list[index]
-                data_path= join(image_dir, labels[index], images[index])
-               
-                image_array = read_image(data_path, "zoom")
-                ax[i][j].imshow(image_array)
-                
-                ax[i,j].axis('off')
-                ax[i,j].set_title(labels[index])
-                
-                
-                index += 1
-      plt.show()
-      
       
        
 if __name__ == "__main__":
+  index = label_to_index("aom")
+  print(index)
+  
+  value= index_to_label(2)
+  print(value)
 
     #print("lets do the pre-processing")
     # IMAGE_PATH = r'C:\Users\Dell\Desktop\Otitis_Media\project-otitis-media\data\middle-ear-dataset\csom\o1.jpg'
@@ -90,15 +98,15 @@ if __name__ == "__main__":
 
     # DATA_DIR = "data/middle-ear-dataset/aom"
     # LABEL= "aom"
-    DATA_DIR= "data/middle-ear-dataset"
-    n_rows=3
-    n_cols= 3
-    LABEL= "middle-ear-dataset"
-    image_path, labels= read_as_csv("data/test.csv")
+    # DATA_DIR= "data/middle-ear-dataset"
+    # n_rows=3
+    # n_cols= 3
+    # LABEL= "middle-ear-dataset"
+    # image_path, labels= read_as_csv("data/test.csv")
     
-    #get_image_label_pairs(DATA_DIR, LABEL)
+    # #get_image_label_pairs(DATA_DIR, LABEL)
     
-    display_grid(DATA_DIR, image_path , labels , n_rows, n_cols ,LABEL)
+    # display_grid(DATA_DIR, image_path , labels , n_rows, n_cols ,LABEL)
     
     # new_image_list= image_path[0 : 12]
     # fig , ax = plt.subplots(nrows =  1, ncols=12 , figsize= (10 , 10))   
