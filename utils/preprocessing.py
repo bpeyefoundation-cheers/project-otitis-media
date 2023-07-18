@@ -8,13 +8,13 @@ from os.path import join
 
 
 
-def read_image(image_path: str,mode:str,resize:tuple=(256,256)) -> np.ndarray:
+def read_image(file_path: str,mode:str,resize:tuple=(256,256)) -> np.ndarray:
     """
     image_path:str file_path of the image which we want
     mode:str of either preprocessing or zoom.The image is either zoomed in or padded a the border
     """
    
-    image = Image.open(image_path)
+    image = Image.open(file_path)
     print(image.size)
     height,width=image.size
     if height==width:
@@ -60,7 +60,7 @@ def display_grid(DATA_DIR,image_files,labels,n_rows,n_cols,title,figsize=(10,10)
     for i in range(n_rows):
         for j in range(n_cols):
             file_path=os.path.join(DATA_DIR,image_files[idx])
-            img_arr=read_image(file_path,mode='zoom')
+            img_arr=read_image(file_path,mode='padding')
             
 			  # Display the image in the current subplot
             axes[i, j].imshow(img_arr)
