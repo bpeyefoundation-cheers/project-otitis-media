@@ -8,7 +8,7 @@ from os.path import join
 
 
 
-def read_image(image_path : str , mode:str ,size = (256, 256) ) -> np.ndarray :
+def read_image(image_path : str , mode: str = 'zoom' ,size = (256, 256) ) -> np.ndarray :
     """ Reads image from given path and returns it as numpy array
     
     TODO: resize to a default value (256,256)
