@@ -8,14 +8,20 @@ from os.path import join
 
 
 
-def read_image(file_path: str,mode:str='zoom',resize:tuple=(256,256)) -> np.ndarray:
+def read_image(file_path: str, mode:str,resize=(256,256), grayscale:bool = False) -> np.ndarray:
     """
     image_path:str file_path of the image which we want
     mode:str of either preprocessing or zoom.The image is either zoomed in or padded a the border
     """
-   
+    
+        
     image = Image.open(file_path)
-    print(image.size)
+   
+    if grayscale:
+        image = image.convert("L")
+
+    image = Image.open(file_path)
+    # print(image.size)
     height,width=image.size
     if height==width:
          pass

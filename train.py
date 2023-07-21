@@ -10,7 +10,7 @@ data_root="data\middle-ear-dataset"
 #Transforms
 def image_transforms(file_name,label)->np.ndarray:
     file_path=os.path.join(data_root,label,file_name)
-    array=read_image(file_path,mode)
+    array=read_image(file_path,'zoom',grayscale=True)
     flatten_image=array.flatten()
     return flatten_image
 
@@ -19,8 +19,8 @@ def label_transforms(label)->int:
     return label_to_idx(label)
 
 #load csv
-train_files,train_labels=read_as_csv("data\train.csv")
-test_files,test_labels=read_as_csv("data\test.csv")
+train_files,train_labels=read_as_csv("data/train.csv")
+test_files,test_labels=read_as_csv("data/test.csv")
 
 # Apply the image_transforms function to train_files and test_files
 X_train = np.array(
