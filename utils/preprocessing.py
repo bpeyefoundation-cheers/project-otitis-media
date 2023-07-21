@@ -8,7 +8,7 @@ from os.path import join
 
 
 
-def read_image(file_path: str,mode:str,resize:tuple=(256,256)) -> np.ndarray:
+def read_image(file_path: str,mode:str='zoom',resize:tuple=(256,256)) -> np.ndarray:
     """
     image_path:str file_path of the image which we want
     mode:str of either preprocessing or zoom.The image is either zoomed in or padded a the border

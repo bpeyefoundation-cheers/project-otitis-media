@@ -24,6 +24,17 @@ def get_image_label_pairs(image_dir: str, label: str) -> tuple:
     labels = [label] * len(filenames)
     return filenames, labels
 
+def read_as_csv(csv_file):
+    image_path= []
+    labels= []
+    with open(csv_file , 'r') as f:
+        reader = csv.reader(f)
+        next(reader)
+        for row in reader:
+           image_path.append(row[0])
+           labels.append(row[1])
+    return image_path, labels
+
 
 def save_as_csv(image_paths, labels, outfile):
     """Assume image_paths = [file1, file2, ...filen] and labels = [label1,label2...labelk]
