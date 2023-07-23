@@ -42,12 +42,7 @@ def read_as_csv(csv_file):
            labels.append(row[1])
     return image_path, labels
             
-# if __name__ == '__main__':
-#     images , labels= get_image_label_pairs('data\middle-ear-dataset/aom', 'aom')
-#     images_1 , labels_1 = get_image_label_pairs('data\middle-ear-dataset/csom', 'csom')
 
-#     save_as_csv(images, labels, 'data/AOM.csv')
-#     save_as_csv(images_1, labels_1, 'data/CSOM.csv')
 
 folder = ["aom", "csom", "myringosclerosis", "Normal"]
 
