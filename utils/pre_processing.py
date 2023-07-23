@@ -64,7 +64,7 @@ def read_image(image_path: str,mode:str,size:tuple=(256,256), grayscale:bool = F
             diff = abs(diff)
             (left, upper, right, lower) = (diff//2, 0, width-(diff//2), lower)
             image = image.crop((left, upper, right, lower))
-        print(image.size) 
+     
     image = image.resize((256,256))     
     img_array= np.asarray(image)
     return img_array
