@@ -4,7 +4,7 @@ from utils.io import read_as_csv
 from train import X_test, Y_test
 from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay, precision_score, recall_score, f1_score, cohen_kappa_score
 import matplotlib.pyplot as plt
-
+from utils.pre_processing import label_map
 # Load the model
 loaded_knn_model = joblib.load(MODEL_CHECKPOINT_PATH)
 
@@ -23,8 +23,8 @@ cm = confusion_matrix(Y_test, y_pred)
 print("Confusion Matrix:\n", cm)
 
 # Display confusion matrix
-unique_labels = sorted(set(test_labels))
-disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=unique_labels)
+labels = label_map.keys()
+disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=labels)
 disp.plot()
 plt.show()
 
