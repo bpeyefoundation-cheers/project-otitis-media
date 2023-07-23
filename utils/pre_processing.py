@@ -14,6 +14,7 @@ label_map={
 }
 
 index_to_label_dict= { index:label for label,index in label_map.items()}
+
 def label_to_index( label:str):
   if label not in label_map:
     raise KeyError("label in not valid")
@@ -30,7 +31,7 @@ def index_to_label( inx:int):
  
   
 
-def read_image(image_path: str,mode:str,size:tuple=(256,256) ) ->np.ndarray:
+def read_image(image_path: str,mode:str,size:tuple=(256,256), grayscale:bool = False) ->np.ndarray:
     """ reads image from the given path and returns as a numpy array
     TODO: resize the image and implement the mode of zoom or paddding 
     args:
@@ -76,7 +77,7 @@ if __name__ == "__main__":
   index = label_to_index("aom")
   print(index)
   
-  value= index_to_label(2)
+  value= index_to_label(3)
   print(value)
 
     #print("lets do the pre-processing")
