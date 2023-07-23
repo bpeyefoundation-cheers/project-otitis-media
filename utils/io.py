@@ -58,9 +58,7 @@ if __name__=='__main__':
         images_csom,labels_csom=get_image_label_pairs('data\middle-ear-dataset/csom','csom')
         images_myringosclerosis,labels_myringosclerosis=get_image_label_pairs('data\middle-ear-dataset/myringosclerosis','myringosclerosis')
         images_Normal,labels_Normal=get_image_label_pairs('data\middle-ear-dataset/Normal','Normal')
-        # print(len(ou))
-        # print(out[0])
-        # print(out[1])
+        
 
         save_as_csv(images_aom,labels_aom,'data/aom.csv')
         save_as_csv(images_csom,labels_csom,'data/csom.csv')

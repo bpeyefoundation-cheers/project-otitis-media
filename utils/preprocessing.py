@@ -5,8 +5,22 @@ import numpy as np
 from utils.io import list_files,get_image_label_pairs
 from os.path import join
 
+data_root = "data\middle-ear-dataset"
+label_to_idx_map = {'aom': 0, 'csom': 1, 'myringosclerosis': 2,'Normal':3}
+rev_label_to_idx_map={index:label for label,index in label_to_idx_map.items() }
 
 
+# Transforms
+def image_transforms(file_name, label) -> np.ndarray:
+    file_path = os.path.join(data_root, label, file_name)
+    array = read_image(file_path, "zoom", grayscale=True)
+    flatten_image = array.flatten()
+    return flatten_image
+
+
+def label_transforms(label) -> int:
+    # label_to_index
+    return label_to_idx(label)
 
 def read_image(file_path: str, mode:str,resize=(256,256), grayscale:bool = False) -> np.ndarray:
     """
@@ -57,32 +71,6 @@ def read_image(file_path: str, mode:str,resize=(256,256), grayscale:bool = False
     img_array = np.asarray(new_image)
     return img_array
 
-def display_grid(DATA_DIR,image_files,labels,n_rows,n_cols,title,figsize=(10,10)):
-    """Display grid of images with their labels
-    """
-    fig,axes=plt.subplots(n_rows,n_cols,figsize=figsize)
-    fig.suptitle(title,fontsize=16)
-    idx=0
-    for i in range(n_rows):
-        for j in range(n_cols):
-            file_path=os.path.join(DATA_DIR,image_files[idx])
-            img_arr=read_image(file_path,mode='padding')
-            
-			  # Display the image in the current subplot
-            axes[i, j].imshow(img_arr)
-            axes[i, j].axis("off")
-            axes[i,j].set_title(f'Label:{labels[idx]}')
-            idx+=1
-            # Adjust the spacing between subplots
-    plt.tight_layout()
-    plt.show()
-
-            
-            
- 
-label_to_idx_map = {'aom': 0, 'csom': 1, 'myringosclerosis': 2,'Normal':3}
-rev_label_to_idx_map={index:label for label,index in label_to_idx_map.items() }
-
 def label_to_idx(label:str):
         """convert label name to index
 	for example: if my dataset consists of three labels (aom, csom, myringosclerosis,normal)
@@ -101,21 +89,9 @@ def idx_to_label(idx:int):
         except KeyError:
             raise KeyError(f"Label not found. Try one of these: {rev_label_to_idx_map.keys()}")
 
-# def func(default=None):
-#     try:
-#         return label_to_idx_map[label]
-#     except KeyError:
-#          return default
 
 if __name__ == "__main__":
-    # IMAGE_PATH=r'C:\Users\Dell\Desktop\projects\project-otitis-media\data\middle-ear-dataset\csom\o13.jpg'
-    # image=read_image(IMAGE_PATH)
-
-    # remove xticks and yticks
-    # plt.xticks([])
-    # plt.yticks([])
-    # set title
-
+    
     #check for label to index
     label='aom'
     label_idx=label_to_idx(label)

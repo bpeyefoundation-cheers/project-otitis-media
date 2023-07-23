@@ -1,32 +1,45 @@
 import joblib
 from config import MODEL_CHECKPOINT_PATH 
 from utils.io import read_as_csv
-from train import X_test, Y_test
+import os
 from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay, precision_score, recall_score, f1_score, cohen_kappa_score
 import matplotlib.pyplot as plt
+import numpy as np
+from utils.preprocessing import image_transforms,label_transforms,label_to_idx_map, idx_to_label
+from sklearn.metrics import classification_report
+from visualization import display_grid
 
 # Load the model
 loaded_knn_model = joblib.load(MODEL_CHECKPOINT_PATH)
 
 # Test filenames, labels
 test_files, test_labels = read_as_csv("data/test.csv")
+X_test = np.array(
+    [image_transforms(file, label) for file, label in zip(test_files, test_labels)]
+)
+Y_test = np.array([label_transforms(lab) for lab in test_labels])
+
 
 # Predict
 y_pred = loaded_knn_model.predict(X_test)
 
+y_pred_labels=np.array([ idx_to_label(p) for p in y_pred])
 # Compute accuracy
 accuracy = accuracy_score(Y_test, y_pred)
 print("Accuracy:", accuracy)
+
+print(classification_report(Y_test, y_pred, target_names=label_to_idx_map.keys()))
 
 # Compute confusion matrix
 cm = confusion_matrix(Y_test, y_pred)
 print("Confusion Matrix:\n", cm)
 
 # Display confusion matrix
-unique_labels = sorted(set(test_labels))
+
+unique_labels = label_to_idx_map.keys()
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=unique_labels)
-disp.plot()
-plt.show()
+# disp.plot()
+# plt.show()
 
 # Compute precision, recall, and F1-score
 precision = precision_score(Y_test, y_pred, average='macro')  # 'macro' averages the scores for each class
@@ -44,6 +57,7 @@ print("Specificity (True Negative Rate):", specificity)
 # Compute Cohen's Kappa 
 cohen_kappa = cohen_kappa_score(Y_test, y_pred)
 print("Cohen's Kappa:", cohen_kappa)
-
+DATA_DIRS='data/middle-ear-dataset'
+display_grid(DATA_DIR=DATA_DIRS,image_files=test_files,actual_labels=test_labels,predicted_labels=y_pred_labels,n_rows=4,n_cols=3,title='Otitis_media')
 
 
