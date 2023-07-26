@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from collections import OrderedDict
 
 
-def display_grid(image_dir:str, images:list, actual_labels:list, predicted_label: list,  n_rows:int, n_cols:int, title:str, fig_size:tuple=(10,10)):
+def display_grid(image_dir:str, images:list, actual_labels:list ,  n_rows:int, n_cols:int, title:str, predicted_label: list = None , fig_size:tuple=(10,10)):
       """display grid of images with their labels"""
     #   image_paths= list_files(image_dir)
     #   no_of_images= n_rows * n_cols
@@ -24,7 +24,10 @@ def display_grid(image_dir:str, images:list, actual_labels:list, predicted_label
                 ax[i][j].imshow(image_array)
                 
                 ax[i,j].axis('off')
-                ax[i,j].set_title(f'True{actual_labels[index]} \n predicted:{predicted_label[index]}')
+                if predicted_label.any == None :
+                     ax[i,j].set_title(f'True:{actual_labels[index]}')
+                else :
+                     ax[i,j].set_title(f'True:{actual_labels[index]} \n predicted:{predicted_label[index]}')
                 
                 
                 index += 1

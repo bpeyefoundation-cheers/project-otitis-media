@@ -4,10 +4,11 @@ from utils.io import read_as_csv
 import matplotlib.pyplot as plt
 from utils.preprocessing import image_transforms,  label_transforms
 import numpy as np
-from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay, precision_score, recall_score, f1_score, cohen_kappa_score
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, precision_score, recall_score, f1_score, cohen_kappa_score
 from utils.preprocessing import label_map , index_to_label
 from sklearn.metrics import classification_report
 from viz.visualization import display_grid
+from metrics.accuracy import accuracy
 
 # Load the model
 loaded_knn_model = joblib.load(MODEL_CHECKPOINT_PATH)
@@ -24,8 +25,8 @@ y_pred = loaded_knn_model.predict(X_test)
 y_pred_labels = np.array([index_to_label(idx) for idx in y_pred])
 
 # Compute accuracy
-accuracy = accuracy_score(Y_test, y_pred)
-print("Accuracy:", accuracy)
+accuracy_calc = accuracy(Y_test, y_pred)
+print("Accuracy:", accuracy_calc)
 
 # Compute confusion matrix
 cm = confusion_matrix(Y_test, y_pred)
@@ -60,4 +61,4 @@ print(classification_report(Y_test, y_pred, target_names= labels))
 
 DATA_DIR= "data/middle-ear-dataset"
 
-display_grid(image_dir=DATA_DIR, images = test_files , actual_labels= test_labels , predicted_label=y_pred_labels , n_rows= 4 , n_cols= 3, title= 'Otitis_media'  )
+display_grid(image_dir=DATA_DIR, images = test_files , actual_labels= test_labels  , predicted_label= y_pred_labels, n_rows= 4 , n_cols= 3, title= 'Otitis_media'  )
