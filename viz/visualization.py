@@ -2,7 +2,7 @@ from os.path import join
 from utils.pre_processing import read_image
 import matplotlib.pyplot as plt
 
-def display_grid(image_dir:str, images:list, labels:list,predicted_label:list, n_rows:int, n_cols:int, title:str, fig_size:tuple=(10,10)):
+def display_grid(image_dir:str, images:list, labels:list, n_rows:int, n_cols:int, title:str,predicted_label:list = None, fig_size:tuple=(10,10)):
       """display grid of images with their labels"""
     #   image_paths= list_files(image_dir)
     #   no_of_images= n_rows * n_cols
@@ -21,7 +21,12 @@ def display_grid(image_dir:str, images:list, labels:list,predicted_label:list, n
                 ax[i][j].imshow(image_array)
                 
                 ax[i,j].axis('off')
-                ax[i,j].set_title(f'True:{labels[index]} \n Predicted:{predicted_label[index]}')
+                if predicted_label is None:
+                  ax[i,j].set_title(f'True:{labels[index]}')
+                
+                  
+                else:
+                  ax[i,j].set_title(f'True:{labels[index]} \n Predicted:{predicted_label[index]}')
                 
                 
                 index += 1

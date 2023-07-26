@@ -4,7 +4,7 @@ from utils.io import read_as_csv
 from utils.pre_processing import read_image, label_to_index
 import os.path
 import joblib
-from utils.config  import  MODEL_CHECKPOINT_PATH   
+from config  import  MODEL_CHECKPOINT_PATH   
 
 data_root = "data\middle-ear-dataset"
 
