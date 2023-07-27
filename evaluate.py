@@ -8,7 +8,7 @@ import numpy as np
 from utils.preprocessing import image_transforms,label_transforms,label_to_idx_map, idx_to_label
 from sklearn.metrics import classification_report
 from visualization import display_grid
-
+from train import X_train,Y_train
 # Load the model
 loaded_knn_model = joblib.load(MODEL_CHECKPOINT_PATH)
 
@@ -24,6 +24,10 @@ Y_test = np.array([label_transforms(lab) for lab in test_labels])
 y_pred = loaded_knn_model.predict(X_test)
 
 y_pred_labels=np.array([ idx_to_label(p) for p in y_pred])
+
+
+
+
 # Compute accuracy
 accuracy = accuracy_score(Y_test, y_pred)
 print("Accuracy:", accuracy)

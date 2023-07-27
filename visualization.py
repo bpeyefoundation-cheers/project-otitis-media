@@ -22,6 +22,8 @@ def display_grid(DATA_DIR,image_files,actual_labels,predicted_labels,n_rows,n_co
             # Adjust the spacing between subplots
     plt.tight_layout()
     plt.show()
+    
+    
 
 
 
