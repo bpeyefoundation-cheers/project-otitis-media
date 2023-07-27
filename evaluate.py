@@ -8,7 +8,7 @@ from utils.pre_processing import label_map, index_to_label
 from viz.visualization import display_grid
 import numpy as np
 from metrics.accuracy import accuracy
-from metrics.confusion_metrix import confusionmatrix
+from metrics.confusion_metrix import confusionmatrix , confusion_metrics_calculate
 # Load the model
 loaded_knn_model = joblib.load(MODEL_CHECKPOINT_PATH)
 
@@ -26,8 +26,12 @@ defined_accuracy= accuracy( y_pred, Y_test)
 print("Defined_accuracy :", defined_accuracy)
 
 
-matrix = confusionmatrix( y_pred, Y_test)
-print(matrix)
+# matrix = confusionmatrix( y_pred, Y_test)
+# print(matrix)
+
+# new_matrix = confusion_metrics_calculate(y_pred, Y_test)
+# print(new_matrix) 
+
 # Compute confusion matrix
 cm = confusion_matrix(Y_test, y_pred)
 print("Confusion Matrix:\n", cm)
