@@ -8,12 +8,9 @@ import numpy as np
 from utils.preprocessing import image_transforms,label_transforms,label_to_idx_map, idx_to_label
 from sklearn.metrics import classification_report
 from visualization import display_grid
-<<<<<<< HEAD
 from train import X_train,Y_train
-=======
 from metrics.accuracy import accuracy
 from metrics.confusion import confusion_metrics_calculate
->>>>>>> 2d4d11bf7aa31fd4910b6eaebc23962c9d18b534
 # Load the model
 loaded_knn_model = joblib.load(MODEL_CHECKPOINT_PATH)
 
@@ -28,14 +25,9 @@ y_test_label=np.array([ idx_to_label(p) for p in y_test])
 y_pred = loaded_knn_model.predict(X_test)
 
 y_pred_labels=np.array([ idx_to_label(p) for p in y_pred])
-<<<<<<< HEAD
 
-
-
-
-=======
 #print(set(y_pred_labels))
->>>>>>> 2d4d11bf7aa31fd4910b6eaebc23962c9d18b534
+
 # Compute accuracy
 acc = accuracy(y_test, y_pred)
 print("Accuracy:", acc)

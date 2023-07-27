@@ -9,6 +9,23 @@ data_root = "data\middle-ear-dataset"
 label_to_idx_map = {'aom': 0, 'csom': 1, 'myringosclerosis': 2,'Normal':3}
 rev_label_to_idx_map={index:label for label,index in label_to_idx_map.items() }
 
+def label_to_idx(label:str):
+        """convert label name to index
+	for example: if my dataset consists of three labels (aom, csom, myringosclerosis,normal)
+	this function should return 0 for aom, 1 for csom, 2 for myringosclerosis,normal
+	"""
+        if label not in label_to_idx_map:
+             raise KeyError(f"label not define . Defined label are:{label_to_idx_map.keys()}")
+        return label_to_idx_map[label]
+
+   
+
+def idx_to_label(idx:int):
+        """ similiar as label_to_idx but opposite I.e. take the index and return the string label """
+        try:
+            return rev_label_to_idx_map[idx]
+        except KeyError:
+            raise KeyError(f"Label not found. Try one of these: {rev_label_to_idx_map.keys()}")
 
 # Transforms
 def image_transforms(file_name, label) -> np.ndarray:
@@ -71,23 +88,7 @@ def read_image(file_path: str, mode:str,resize=(256,256), grayscale:bool = False
     img_array = np.asarray(new_image)
     return img_array
 
-def label_to_idx(label:str):
-        """convert label name to index
-	for example: if my dataset consists of three labels (aom, csom, myringosclerosis,normal)
-	this function should return 0 for aom, 1 for csom, 2 for myringosclerosis,normal
-	"""
-        if label not in label_to_idx_map:
-             raise KeyError(f"label not define . Defined label are:{label_to_idx_map.keys()}")
-        return label_to_idx_map[label]
 
-   
-
-def idx_to_label(idx:int):
-        """ similiar as label_to_idx but opposite I.e. take the index and return the string label """
-        try:
-            return rev_label_to_idx_map[idx]
-        except KeyError:
-            raise KeyError(f"Label not found. Try one of these: {rev_label_to_idx_map.keys()}")
 
 
 if __name__ == "__main__":
