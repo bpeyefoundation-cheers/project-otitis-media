@@ -2,13 +2,18 @@ import joblib
 from config import MODEL_CHECKPOINT_PATH 
 from utils.io import read_as_csv
 import os
-from sklearn.metrics import accuracy_score, confusion_matrix, ConfusionMatrixDisplay, precision_score, recall_score, f1_score, cohen_kappa_score
+from sklearn.metrics import  confusion_matrix, ConfusionMatrixDisplay, precision_score, recall_score, f1_score, cohen_kappa_score
 import matplotlib.pyplot as plt
 import numpy as np
 from utils.preprocessing import image_transforms,label_transforms,label_to_idx_map, idx_to_label
 from sklearn.metrics import classification_report
 from visualization import display_grid
+<<<<<<< HEAD
 from train import X_train,Y_train
+=======
+from metrics.accuracy import accuracy
+from metrics.confusion import confusion_metrics_calculate
+>>>>>>> 2d4d11bf7aa31fd4910b6eaebc23962c9d18b534
 # Load the model
 loaded_knn_model = joblib.load(MODEL_CHECKPOINT_PATH)
 
@@ -17,25 +22,29 @@ test_files, test_labels = read_as_csv("data/test.csv")
 X_test = np.array(
     [image_transforms(file, label) for file, label in zip(test_files, test_labels)]
 )
-Y_test = np.array([label_transforms(lab) for lab in test_labels])
-
-
+y_test = np.array([label_transforms(lab) for lab in test_labels])
+y_test_label=np.array([ idx_to_label(p) for p in y_test])
 # Predict
 y_pred = loaded_knn_model.predict(X_test)
 
 y_pred_labels=np.array([ idx_to_label(p) for p in y_pred])
+<<<<<<< HEAD
 
 
 
 
+=======
+#print(set(y_pred_labels))
+>>>>>>> 2d4d11bf7aa31fd4910b6eaebc23962c9d18b534
 # Compute accuracy
-accuracy = accuracy_score(Y_test, y_pred)
-print("Accuracy:", accuracy)
+acc = accuracy(y_test, y_pred)
+print("Accuracy:", acc)
 
-print(classification_report(Y_test, y_pred, target_names=label_to_idx_map.keys()))
+
+print(classification_report(y_test, y_pred, target_names=label_to_idx_map.keys()))
 
 # Compute confusion matrix
-cm = confusion_matrix(Y_test, y_pred)
+cm = confusion_metrics_calculate(y_test, y_pred)
 print("Confusion Matrix:\n", cm)
 
 # Display confusion matrix
@@ -46,9 +55,9 @@ disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=unique_labels)
 # plt.show()
 
 # Compute precision, recall, and F1-score
-precision = precision_score(Y_test, y_pred, average='macro')  # 'macro' averages the scores for each class
-recall = recall_score(Y_test, y_pred, average='macro')
-f1 = f1_score(Y_test, y_pred, average='macro')
+precision = precision_score(y_test, y_pred, average='macro')  # 'macro' averages the scores for each class
+recall = recall_score(y_test, y_pred, average='macro')
+f1 = f1_score(y_test, y_pred, average='macro')
 
 print("Precision:", precision)
 print("Recall:", recall)
@@ -59,9 +68,13 @@ specificity = cm[0, 0] / (cm[0, 0] + cm[0, 1])
 print("Specificity (True Negative Rate):", specificity)
 
 # Compute Cohen's Kappa 
-cohen_kappa = cohen_kappa_score(Y_test, y_pred)
+cohen_kappa = cohen_kappa_score(y_test, y_pred)
 print("Cohen's Kappa:", cohen_kappa)
 DATA_DIRS='data/middle-ear-dataset'
-display_grid(DATA_DIR=DATA_DIRS,image_files=test_files,actual_labels=test_labels,predicted_labels=y_pred_labels,n_rows=4,n_cols=3,title='Otitis_media')
+display_grid(DATA_DIR=DATA_DIRS,image_files=test_files,actual_labels=test_labels,
+            #predicted_labels=y_pred_labels,
+             n_rows=4,
+             n_cols=3,
+             title='Otitis_media')
 
 
