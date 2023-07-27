@@ -39,6 +39,9 @@ print(classification_report(y_test, y_pred, target_names=label_to_idx_map.keys()
 cm = confusion_metrics_calculate(y_test, y_pred)
 print("Confusion Matrix:\n", cm)
 
+cm1 = confusion_matrix(y_test, y_pred)
+print("Confusion Matrix:\n", cm1)
+
 # Display confusion matrix
 
 unique_labels = label_to_idx_map.keys()
