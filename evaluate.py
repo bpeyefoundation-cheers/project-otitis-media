@@ -11,11 +11,14 @@ from visualization import display_grid
 from train import X_train,Y_train
 from metrics.accuracy import accuracy
 from metrics.confusion import confusion_metrics_calculate
+from sklearn.neighbors import NearestNeighbors
 # Load the model
 loaded_knn_model = joblib.load(MODEL_CHECKPOINT_PATH)
 
 # Test filenames, labels
 test_files, test_labels = read_as_csv("data/test.csv")
+
+
 X_test = np.array(
     [image_transforms(file, label) for file, label in zip(test_files, test_labels)]
 )
@@ -25,7 +28,7 @@ y_test_label=np.array([ idx_to_label(p) for p in y_test])
 y_pred = loaded_knn_model.predict(X_test)
 
 y_pred_labels=np.array([ idx_to_label(p) for p in y_pred])
-
+print(X_test.shape)
 #print(set(y_pred_labels))
 
 # Compute accuracy
@@ -65,11 +68,60 @@ print("Specificity (True Negative Rate):", specificity)
 # Compute Cohen's Kappa 
 cohen_kappa = cohen_kappa_score(y_test, y_pred)
 print("Cohen's Kappa:", cohen_kappa)
+
+
+
+
+# #  Find the nearest neighbor of a predicted image
+# num_neighbors = 3  # You can modify this to get more nearest neighbors if needed
+# neigh = NearestNeighbors(n_neighbors=num_neighbors)
+# neigh.fit(X_train)  # Assuming X_train is the training data used to train the kNN model
+# distances, nearest_indices = neigh.kneighbors(X_test)
+
+
+
+# # # Get the index of the nearest neighbor for each test sample
+# nearest_neighbor_indices = nearest_indices[:, 0]
+
+
+# nearest_neighbor_images = X_train[nearest_neighbor_indices]
+# nearest_neighbor_labels = Y_train[nearest_neighbor_indices]
+
+
+
+# # Convert the list of test_files into a NumPy array
+# test_files_array = np.array(test_files)
+
+# # Get the filenames of the nearest neighbor images
+# nearest_neighbor_files = test_files_array[nearest_neighbor_indices]
+
+
+
+# DATA_DIRS='data/middle-ear-dataset'
+# # Display the predicted image and its nearest neighbor
+# # Display the predicted image and its nearest neighbor
+# display_grid(DATA_DIRS, image_files=test_files, actual_labels=test_labels,
+#              neighbor_files=nearest_neighbor_files,
+#              n_rows=4,
+#              n_cols=4,
+#              title='Predicted Images and Nearest Neighbors',
+#              predicted_labels=y_pred_labels)
+
+
+
+
+
+
 DATA_DIRS='data/middle-ear-dataset'
 display_grid(DATA_DIR=DATA_DIRS,image_files=test_files,actual_labels=test_labels,
-            #predicted_labels=y_pred_labels,
+            predicted_labels=y_pred_labels,
              n_rows=4,
              n_cols=3,
              title='Otitis_media')
 
 
+
+
+
+
+   
