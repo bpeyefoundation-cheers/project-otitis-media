@@ -9,12 +9,7 @@ data_root = "data\middle-ear-dataset"
 label_to_idx_map = {'aom': 0, 'csom': 1, 'myringosclerosis': 2,'Normal':3}
 rev_label_to_idx_map={index:label for label,index in label_to_idx_map.items() }
 
-# Transforms
-def image_transforms(file_name, label) -> np.ndarray:
-    file_path = os.path.join(data_root, label, file_name)
-    array = read_image(file_path, "zoom", grayscale=True)
-    flatten_image = array.flatten()
-    return flatten_image
+
 
 
 def label_transforms(label) -> int:
@@ -63,9 +58,17 @@ def read_image(file_path: str, mode:str,resize=(256,256), grayscale:bool = False
         elif mode=='padding':
         
             image=ImageOps.pad(image, size=(256,256), centering=(0.5, 0.5))
+            
     new_image=image.resize(resize)
     img_array = np.asarray(new_image)
-    return img_array        
+    return img_array
+# Transforms
+def image_transforms(file_name, label) -> np.ndarray:
+    file_path = os.path.join(data_root, label, file_name)
+    array = read_image(file_path, "zoom", grayscale=True)
+    flatten_image = array.flatten()
+    return flatten_image    
+            
 
 def label_to_idx(label:str):
     """convert label name to index
