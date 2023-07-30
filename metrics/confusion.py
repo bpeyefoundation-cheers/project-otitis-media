@@ -6,7 +6,7 @@ def confusion_metrics_calculate(y_test,y_pred):
     y_test_label=list(set(y_test))
     y_pred_label=list(set(y_pred))
     
-    confusion_matrix=np.zeros((len(y_test_label),len(y_pred_label)))
+    confusion_matrix=np.zeros((len(y_test_label),len(y_pred_label)),dtype=int)
     for actual_label, predicted_label in zip(y_test, y_pred):
         true_idx = y_test_label.index(actual_label)
         pred_idx = y_pred_label.index(predicted_label)
