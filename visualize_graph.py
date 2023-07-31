@@ -1,7 +1,7 @@
 import joblib
 import numpy as np
 from config import MODEL_CHECKPOINT_PATH
-from utils.preprocessing import image_transforms,label_transforms
+from utils.preprocessing import image_transforms,label_transforms,idx_to_label
 from utils.io import read_as_csv
 from sklearn.neighbors import KNeighborsClassifier
 import matplotlib.pyplot as plt
@@ -28,41 +28,15 @@ indices_of_neighbors=loaded_knn_model.kneighbors(X_test[:4],n_neighbors=3,return
 print(indices_of_neighbors)
 
 
-
-# def display_images(train_files, indices_of_neighbors):
-#     for i, neighbors in enumerate(indices_of_neighbors):
-#         print(f"Neighbors for test sample {i + 1}:")
-#         fig, axs = plt.subplots(1, len(neighbors), figsize=(10, 5))
-#         for j, neighbor_index in enumerate(neighbors):
-#             image_path = train_files[neighbor_index]
-#             image = plt.imread(image_path)
-#             axs[j].imshow(image)
-#             axs[j].set_title(f"Neighbor {j + 1}")
-#             axs[j].axis('off')
-#         plt.show()
-
-
-
-# display_images(train_files, indices_of_neighbors[:4])
-# images=[]
-# labels=[]  
-# for i, neighbors in enumerate(indices_of_neighbors):
-#     images.append(X_test)        
-
-#             # Adjust the spacing between subplots
-#     plt.tight_layout()
-#     plt.show()
-
-
-
-
-
-fig, axs = plt.subplots(4,4,figsize=(10, 10))
+# Make predictions using the KNN model on the test data
+y_pred = loaded_knn_model.predict(X_test)
+y_pred_labels=np.array([ idx_to_label(p) for p in y_pred])
+fig, axs = plt.subplots(4,4,figsize=(8, 8))
 
 for i in range(4):
 
     axs[i, 0].imshow(X_test[i].reshape(256,256,3))
-    axs[i, 0].set_title(f"Test Image:{train_labels[i]}")
+    axs[i, 0].set_title(f"Test Image:{train_labels[i]}\n Predicted Image:{y_pred_labels[i]}")
     axs[i, 0].axis('off')
 
     for j, idx in enumerate(indices_of_neighbors[i]):
