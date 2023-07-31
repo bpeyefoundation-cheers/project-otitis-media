@@ -13,6 +13,7 @@ label_map={
   "Normal":4
 }
 
+data_root = "data\middle-ear-dataset"
 index_to_label_dict= { index:label for label,index in label_map.items()}
 
 def label_to_index( label:str):
@@ -69,7 +70,11 @@ def read_image(image_path: str,mode:str,size:tuple=(256,256), grayscale:bool = F
     img_array= np.asarray(image)
     return img_array
 
-
+def image_transforms(file_name, label) -> np.ndarray:
+    file_path = os.path.join(data_root, label, file_name)
+    array = read_image(file_path, "zoom", grayscale=True)
+    flatten_image = array.flatten()
+    return flatten_image   
   
       
        
