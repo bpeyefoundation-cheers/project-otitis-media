@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from utils.preprocessing import read_image
 from os.path import join
 import os
-def display_grid(DATA_DIR,image_files,actual_labels,n_rows,n_cols,title,figsize=(10,10),predicted_labels=None):
+def display_grid(DATA_DIR,image_files,actual_labels,n_rows,n_cols,title,figsize=(8,8),predicted_labels=None):
     """Display grid of images with their labels
     """
     fig,axes=plt.subplots(n_rows,n_cols,figsize=figsize)
