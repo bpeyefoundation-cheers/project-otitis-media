@@ -16,6 +16,17 @@ label_map={
 data_root = "data\middle-ear-dataset"
 index_to_label_dict= { index:label for label,index in label_map.items()}
 
+def image_transforms(file_name, label) -> np.ndarray:
+    file_path = os.path.join(data_root, label, file_name)
+    array = read_image(file_path, "zoom", grayscale=True)
+    flatten_image = array.flatten()
+    return flatten_image
+
+
+def label_transforms(label) -> int:
+    # label_to_index
+    return label_to_index(label)
+  
 def label_to_index( label:str):
   if label not in label_map:
     raise KeyError("label in not valid")

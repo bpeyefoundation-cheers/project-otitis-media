@@ -1,0 +1,9 @@
+data_root: data
+train_csv: train.csv
+test_csv : test.csv
+model: 
+  name: kneighbors
+  args: 
+    n_neighbors : 3
+checkpoint_path: models/knn_model.pkl
+
