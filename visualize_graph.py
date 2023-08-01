@@ -24,14 +24,14 @@ y_test = np.array([label_transforms(lab) for lab in test_labels])
 neigh = KNeighborsClassifier(n_neighbors=3)
 #neigh.fit(X_test, y_test)
 
-indices_of_neighbors=loaded_knn_model.kneighbors(X_test[:4],n_neighbors=5,return_distance =False)
+indices_of_neighbors=loaded_knn_model.kneighbors(X_test[:4],n_neighbors=3,return_distance =False)
 print(indices_of_neighbors)
 
 
 # Make predictions using the KNN model on the test data
 y_pred = loaded_knn_model.predict(X_test)
 y_pred_labels=np.array([ idx_to_label(p) for p in y_pred])
-fig, axs = plt.subplots(4,6,figsize=(8, 8))
+fig, axs = plt.subplots(4,4,figsize=(8, 8))
 
 for i in range(4):
 
