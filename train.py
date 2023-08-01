@@ -7,6 +7,7 @@ import joblib
 from config import MODEL_CHECKPOINT_PATH
 from utils.load_config import config_load
 from models.models import ModelZoo
+from argparse import ArgumentParser
 
 def train(data_root,train_csv,test_csv,model,checkpoint_path):
     train_path=os.path.join(data_root,train_csv)
@@ -32,6 +33,12 @@ def train(data_root,train_csv,test_csv,model,checkpoint_path):
     joblib.dump(clf, checkpoint_path)
 
 if __name__=="__main__":
+    parser = ArgumentParser(
+        prog="train",
+        description="Script to train model",
+    )
+    parser.add_argument("-c", "--config", required=True)
+    args = parser.parse_args()
     configs=config_load("configs\config.yaml")
     model=ModelZoo(**configs["model"]).get_model()
  
