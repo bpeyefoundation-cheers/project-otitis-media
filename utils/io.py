@@ -41,6 +41,16 @@ def read_as_csv(csv_file):
            image_path.append(row[0])
            labels.append(row[1])
     return image_path, labels
+
+
+def save_prediction_as_csv(test_files, test_labels, pred_labels , outfile):
+    with open(outfile, "w", newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(["file", "y_test" , "y_pred"])
+        for test_file, test_label, pred_label in zip(test_files, test_labels, pred_labels):
+            writer.writerow([test_file, test_label , pred_label])
+
+
             
 
 

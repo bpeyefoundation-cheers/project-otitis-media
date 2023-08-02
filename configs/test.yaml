@@ -1,0 +1,4 @@
+evaluation:
+  model_checkpoint : models/knn_model.pkl
+  test_data_path : data\tests.csv
+  out_dir: data\prediction.csv
