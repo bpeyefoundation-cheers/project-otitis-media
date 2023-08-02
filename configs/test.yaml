@@ -1,0 +1,6 @@
+evaluation: 
+  model_checkpoint: models\knn_model.pkl
+  data_root: data
+
+  test_csv: test.csv
+  out_dir: data\prediction.csv

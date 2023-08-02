@@ -52,6 +52,23 @@ def save_as_csv(image_paths, labels, outfile):
         for image_path, label in zip(image_paths, labels):
             writer.writerow([image_path, label])
 
+def save_prediction_as_csv(test_files, y_tests,y_preds, outfile):
+    """Assume image_paths = [file1, file2, ...filen] and labels = [label1,label2...labelk]
+    Save a CSV file with a default name 'output.csv' such that each row contains:
+    file1, label1
+    file2, label2
+    """
+
+    # outfile = 'output.csv'
+
+    with open(outfile, "w", newline="") as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(["test_file", "y_test","y_pred"])
+
+        for test_file,y_test,y_pred  in zip(test_files, y_tests,y_preds):
+            writer.writerow([test_file,y_test,y_pred])
+
+
 
 if __name__=='__main__':
         images_aom,labels_aom=get_image_label_pairs('data\middle-ear-dataset/aom','aom')
