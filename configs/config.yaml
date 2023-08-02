@@ -7,3 +7,5 @@ model:
     n_neighbors : 3
 checkpoint_path: models/knn_model.pkl
 
+
+  

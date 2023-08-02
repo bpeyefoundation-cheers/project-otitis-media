@@ -30,6 +30,15 @@ def save_as_csv(img_path: str, label: str, outfile):
         for image_path, label in zip(img_path, label):
             writer.writerow([image_path, label])
 
+def save_predictions(test_files , y_test, y_predictions, outfile):
+    
+    with open(outfile , "w", newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(["test_files" , "ground_truth" , "predictions"])
+        for test_path, ground, pred in zip(test_files, y_test, y_predictions):
+            writer.writerow([test_path, ground, pred])
+            
+            
 def read_as_csv(csv_file):
     image_path= []
     labels= []
