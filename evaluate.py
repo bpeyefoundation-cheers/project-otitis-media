@@ -17,24 +17,6 @@ from argparse import ArgumentParser
 
 
 from utils.load_config import config_load
-# # Load the model
-# loaded_knn_model = joblib.load(MODEL_CHECKPOINT_PATH)
-
-# # Test filenames, labels
-# test_files, test_labels = read_as_csv("data/test.csv")
-
-
-# X_test = np.array(
-#     [image_transforms(file, label) for file, label in zip(test_files, test_labels)]
-# )
-# y_test = np.array([label_transforms(lab) for lab in test_labels])
-# y_test_label=np.array([ idx_to_label(p) for p in y_test])
-# # Predict
-# y_pred = loaded_knn_model.predict(X_test)
-
-# y_pred_labels=np.array([ idx_to_label(p) for p in y_pred])
-# print(X_test.shape)
-# #print(set(y_pred_labels))
 
 def get_prediction(model_checkpoint,test_file,out_dir):
     loaded_model = joblib.load(model_checkpoint)
@@ -49,13 +31,6 @@ def get_prediction(model_checkpoint,test_file,out_dir):
     print("saved")
 
     
-
-
-    
-
-
-
-
 
 # # Compute accuracy
 # acc = accuracy(y_test, y_pred)

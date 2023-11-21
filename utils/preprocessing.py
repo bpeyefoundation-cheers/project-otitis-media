@@ -64,6 +64,9 @@ def read_image(file_path: str, mode:str,resize=(256,256), grayscale:bool = False
     return img_array
 # Transforms
 def image_transforms(file_name, label) -> np.ndarray:
+    """ this function extract the exact image from the image file name and label provided
+    file_name:string,label:string
+    """
     file_path = os.path.join(data_root, label, file_name)
     array = read_image(file_path, "zoom", grayscale=True)
     flatten_image = array.flatten()
@@ -75,6 +78,14 @@ def label_to_idx(label:str):
 	for example: if my dataset consists of three labels (aom, csom, myringosclerosis,normal)
 	this function should return 0 for aom, 1 for csom, 2 for myringosclerosis,normal
 	"""
+    """label represent class name in otitis media and index represent the corresponding class
+
+    Raises:
+        KeyError: _description_
+
+    Returns:
+        _type_: _description_
+    """
     if label not in label_to_idx_map:
         raise KeyError(f"label not define . Defined label are:{label_to_idx_map.keys()}")
     return label_to_idx_map[label]   

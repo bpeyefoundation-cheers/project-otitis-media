@@ -3,3 +3,5 @@ scikit-learn==1.2.1
 matplotlib==3.7.2
 joblib
 pyyaml
+torch
+torchvision
