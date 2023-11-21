@@ -2,9 +2,9 @@ venv
 .vscode
 data
 # models
-__pycache__
 *.pkl
-
+.vscode
+__pycache__
 
 
 
