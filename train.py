@@ -30,32 +30,7 @@ def train(data_root, train_csv, test_csv, model, checkpoint_path):
     Y_test = np.array([label_transforms(lab) for lab in test_labels])
 
 
-    # X_train=[
-    #     [-1,3],
-    #     [2,1],
-    #     [-2,2],
-    #     [-1,2],
-    #     [-1,0],
-    #     [1,1],
-
-    #     ]
-    # x_predict=[[1,2]]
-    # label_to_index={
-    #     "Red":0,
-    #     "Blue":1
-    # }
-
-    # Y_train_raw=[
-    #     "Red",
-    #     "Blue",
-    #     "Red",
-    #     "Blue",
-    #     "Blue",
-    #     "Red"
-    # ]
-    # Y_train=[label_to_index[l] for l in Y_train_raw]
-    # print(Y_train)
-    # index_to_label={0:"Red",1:"Blue"}
+    
 
     clf = model
     clf.fit(X_train, Y_train)
@@ -67,8 +42,8 @@ def train(data_root, train_csv, test_csv, model, checkpoint_path):
     #     dict_proba.append({index_to_label[i]:p for i,p in enumerate(proba)})
     # print("pred prob:",dict_proba)
 
-    #print("Train score:", clf.score(X_train, Y_train))
-    # print("Test score:", clf.score(X_test, Y_test))
+    print("Train score:", clf.score(X_train, Y_train))
+    #print("Test score:", clf.score(X_test, Y_test))
 
     # Prediction
     #print("Before save:",clf.predict(X_test))
@@ -83,6 +58,13 @@ def train(data_root, train_csv, test_csv, model, checkpoint_path):
     # print(loaded_knn_model.predict(X_test))
     
 if __name__ == "__main__":
+    
+    # parser = ArgumentParser(
+    #     prog= "train", 
+    #     description = "script to train the model"
+    # )
+    # parser.add_argument("-c", "--config")
+    
     configs = config_laoder("configs\config.yaml")
     models = ModelZoo(**configs["model"]).get_model()
     #print(configs)

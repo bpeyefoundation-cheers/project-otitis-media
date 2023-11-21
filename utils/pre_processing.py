@@ -24,10 +24,22 @@ def image_transforms(file_name, label) -> np.ndarray:
 
 
 def label_transforms(label) -> int:
+  
     # label_to_index
     return label_to_index(label)
   
 def label_to_index( label:str):
+  """the class name is converted to the corresponding label name
+
+  Args:
+      label (str): the class names
+
+  Raises:
+      KeyError: _description_
+
+  Returns:
+      _type_: returns the corresponding label name
+  """    
   if label not in label_map:
     raise KeyError("label in not valid")
   return label_map[label]
@@ -82,6 +94,9 @@ def read_image(image_path: str,mode:str,size:tuple=(256,256), grayscale:bool = F
     return img_array
 
 def image_transforms(file_name, label) -> np.ndarray:
+    """gets the image path and etracts the image
+    file_name: string 
+    label : string"""
     file_path = os.path.join(data_root, label, file_name)
     array = read_image(file_path, "zoom", grayscale=True)
     flatten_image = array.flatten()
