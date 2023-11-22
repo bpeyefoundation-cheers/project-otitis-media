@@ -7,23 +7,20 @@ import torch
 import torch.nn.functional as F
 import torch.optim as optim
 import yaml
-from torch.utils.data import DataLoader
-
+from torch.utils.data import DataLoader,Dataset
+from torch import nn
 from models.CustomNN import OtitisMediaClassifier
 from models.models import ModelZoo
 from utils.io import read_as_csv
 from utils.preprocessing import image_transforms, label_transforms
+IMG_size=256
+NUM_CHANNELS=3
+NUM_LABELS=4
+
+#create model object
+model_nn= OtitisMediaClassifier(img_size=IMG_size,num_channels=NUM_CHANNELS,num_labels=NUM_LABELS)
 
 
-def train_neural_network(data_root, train_csv, test_csv, model, checkpoint_path, epochs=20, lr=0.01, batch_size=64):
-    train_path = os.path.join(data_root, train_csv)
-    train_files, train_labels = read_as_csv(train_path)
-
-    # Apply transformations
-    X_train = np.array(
-        [image_transforms(file, label) for file, label in zip(train_files, train_labels)]
-    )
-    Y_train = np.array([label_transforms(lab) for lab in train_labels])
 
     # Convert to PyTorch tensors
     X_train = torch.from_numpy(X_train).float()

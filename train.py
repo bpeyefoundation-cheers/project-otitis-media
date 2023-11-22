@@ -1,16 +1,13 @@
-import os.path
-from argparse import ArgumentParser
-
-import joblib
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
-
-from config import MODEL_CHECKPOINT_PATH
-from models.models import ModelZoo
 from utils.io import read_as_csv
-from utils.load_config import config_load
 from utils.preprocessing import image_transforms, label_transforms
-
+import os.path
+import joblib
+from config import MODEL_CHECKPOINT_PATH
+from utils.load_config import config_load
+from models.models import ModelZoo
+from argparse import ArgumentParser
 
 def train(data_root,train_csv,test_csv,model,checkpoint_path):
     train_path=os.path.join(data_root,train_csv)
@@ -28,10 +25,7 @@ def train(data_root,train_csv,test_csv,model,checkpoint_path):
     # print(X_train)
     Y_train = np.array([label_transforms(lab) for lab in train_labels])
 
-    
-    
-    
-    
+
     clf = model
     clf.fit(X_train, Y_train)
 
@@ -47,11 +41,11 @@ if __name__=="__main__":
     parser.add_argument("-c", "--config", required=True)
     args = parser.parse_args()
 
-    configs=config_load("configs\config.yaml")
+    configs=config_load(args.config)
     model=ModelZoo(**configs["model"]).get_model()
-
+ 
     train(data_root=configs["data_root"],train_csv=configs["train_csv"],test_csv=configs["test_csv"],
-        model=model,
-        checkpoint_path=configs["checkpoint_path"])
+          model=model,
+          checkpoint_path=configs["checkpoint_path"])
     
     
