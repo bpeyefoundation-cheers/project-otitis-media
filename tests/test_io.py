@@ -1,5 +1,7 @@
 import unittest
-from utils.io import list_files,get_image_label_pairs,save_as_csv
+
+from utils.io import get_image_label_pairs, list_files, save_as_csv
+
 
 class TestIO(unittest.TestCase):
     def test_list_files(self):

@@ -1,7 +1,11 @@
-import matplotlib.pyplot as plt
-from utils.preprocessing import read_image
-from os.path import join
 import os
+from os.path import join
+
+import matplotlib.pyplot as plt
+
+from utils.preprocessing import read_image
+
+
 def display_grid(DATA_DIR,image_files,actual_labels,n_rows,n_cols,title,figsize=(8,8),predicted_labels=None):
     """Display grid of images with their labels
     """
@@ -14,7 +18,7 @@ def display_grid(DATA_DIR,image_files,actual_labels,n_rows,n_cols,title,figsize=
             file_path=os.path.join(DATA_DIR,actual_labels[idx], image_files[idx])
             img_arr=read_image(file_path,mode='padding')
             
-			  # Display the image in the current subplot
+			# Display the image in the current subplot
             axes[i, j].imshow(img_arr)
             axes[i, j].axis("off")
             if predicted_labels is not None :
