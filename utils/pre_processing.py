@@ -4,6 +4,7 @@ import numpy as np
 #from os.path import join 
 #from viz.visualization import display_grid
 import os
+from utils.io import read_as_csv
 
 
 label_map={
@@ -13,13 +14,14 @@ label_map={
   "Normal":4
 }
 
-data_root = "data\middle-ear-dataset"
+data_root = "data/middle-ear-dataset"
 index_to_label_dict= { index:label for label,index in label_map.items()}
 
 def image_transforms(file_name, label) -> np.ndarray:
     file_path = os.path.join(data_root, label, file_name)
     array = read_image(file_path, "zoom", grayscale=True)
     flatten_image = array.flatten()
+    print(len(flatten_image))
     return flatten_image
 
 
@@ -95,6 +97,19 @@ if __name__ == "__main__":
   
   value= index_to_label(3)
   print(value)
+
+  data= "./data"
+  train_path = os.path.join(data, "train.csv")
+  train_files, train_labels = read_as_csv(train_path)
+  #print(train_files, train_labels)
+  # zipped = zip(train_files, train_labels)
+  # for file, label in zipped:
+  #    print(file)
+  #    print(label)
+  X_train = np.array(
+       [image_transforms(file, label) for file, label in zip(train_files, train_labels)]
+  )
+  print(X_train)
 
     #print("lets do the pre-processing")
     # IMAGE_PATH = r'C:\Users\Dell\Desktop\Otitis_Media\project-otitis-media\data\middle-ear-dataset\csom\o1.jpg'

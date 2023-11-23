@@ -96,6 +96,6 @@ if __name__ == '__main__' :
 #DATA_DIR ='data/middle-ear-dataset'
 #predicted_label = np.array([index_to_label(i) for i in y_pred])
 
- 
+
 #display_grid(image_dir=DATA_DIR, images=test_files, labels=test_labels, n_rows=3, n_cols=3, title='asom') 
-    
+  
