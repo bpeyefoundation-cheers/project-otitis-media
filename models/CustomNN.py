@@ -30,21 +30,21 @@ class OtitisMediaClassifier(torch.nn.Module):
 
         #x=x.flatten()
         
-# Convert to PyTorch tensors
-X_train = torch.from_numpy(X_train).float()
-Y_train = torch.from_numpy(Y_train).long()
+# # Convert to PyTorch tensors
+# X_train = torch.from_numpy(X_train).float()
+# Y_train = torch.from_numpy(Y_train).long()
 
-# Create DataLoader
-train_dataset = torch.utils.data.TensorDataset(X_train, Y_train)
-trainloader = torch.utils.data.DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
+# # Create DataLoader
+# train_dataset = torch.utils.data.TensorDataset(X_train, Y_train)
+# trainloader = torch.utils.data.DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
 
-model = OtitisMediaClassifier()
-# define a loss function
-criterion = nn.NLLLoss()
-optimizer = optim.SGD(model.parameters(), lr=0.01)
+# model = OtitisMediaClassifier()
+# # define a loss function
+# criterion = nn.NLLLoss()
+# optimizer = optim.SGD(model.parameters(), lr=0.01)
 
-epochs = 20
-train_losses= []
+# epochs = 20
+# train_losses= []
 
 # Training loop
 # for e in range(epochs):
@@ -59,20 +59,20 @@ train_losses= []
 
 #         print(f'Epoch: {e+1} \t Training Loss: {running_loss / len(trainloader)}')
 
-for e in range(epochs):
-    running_loss = 0
-    for images, labels in trainloader:
-        optimizer.zero_grad()
-        log_probs =model(images)
-        loss = criterion(output, labels)
-        loss.backward() 
-        optimizer.step()
-        running_loss += loss.item() * images.size(0)
+# for e in range(epochs):
+#     running_loss = 0
+#     for images, labels in trainloader:
+#         optimizer.zero_grad()
+#         log_probs =model(images)
+#         loss = criterion(output, labels)
+#         loss.backward() 
+#         optimizer.step()
+#         running_loss += loss.item() * images.size(0)
 
     
 
-        running_loss = running_loss / len(trainloader.sampler)
-        train_losses.append(running_loss)
+#         running_loss = running_loss / len(trainloader.sampler)
+#         train_losses.append(running_loss)
 
 
-        print(f'Epoch: {e+1} \t Training Loss: {running_loss:.6f} ')
+#         print(f'Epoch: {e+1} \t Training Loss: {running_loss:.6f} ')
