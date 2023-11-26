@@ -5,6 +5,8 @@ data
 *.pkl
 .vscode
 __pycache__
+__pycache__/
+*.pyc
 
 
 

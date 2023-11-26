@@ -1,9 +1,10 @@
-from PIL import Image,ImageOps
 import os
+from os.path import join
+
 import matplotlib.pyplot as plt
 import numpy as np
-from utils.io import list_files,get_image_label_pairs
-from os.path import join
+from PIL import Image, ImageOps
+from utils.io import get_image_label_pairs, list_files
 
 data_root = "data\middle-ear-dataset"
 label_to_idx_map = {'aom': 0, 'csom': 1, 'myringosclerosis': 2,'Normal':3}
