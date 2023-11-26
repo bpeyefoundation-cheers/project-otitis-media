@@ -2,6 +2,7 @@ import numpy as np
 import torch
 from torch.nn import Linear
 from torch.nn.functional import relu
+import torch.nn as nn
 
 
 class OtitisMediaClassifier(torch.nn.Module):
@@ -10,10 +11,10 @@ class OtitisMediaClassifier(torch.nn.Module):
     Args:
         torch (_type_): _description_
     """
-    def __init__(self,img_size:int,num_labels:int):
+    def __init__(self,img_size:int,num_channels,num_labels:int):
         super().__init__()
         #define fully connected layer
-        self.fc1=torch.nn.Linear(img_size*img_size,512)
+        self.fc1=torch.nn.Linear(img_size*img_size*num_channels,512)
         self.fc2=torch.nn.Linear(512,256)
         self.fc3=torch.nn.Linear(256,128)
         self.fc4=torch.nn.Linear(128,num_labels)
@@ -46,18 +47,18 @@ class OtitisMediaClassifier(torch.nn.Module):
 # epochs = 20
 # train_losses= []
 
-# Training loop
-# for e in range(epochs):
-#     running_loss = 0
-#     for images, labels in trainloader:
-#         optimizer.zero_grad()
-#         outputs = model(images)
-#         loss = criterion(outputs, labels)
-#         loss.backward()
-#         optimizer.step()
-#         running_loss += loss.item()
+# # Training loop
+# # for e in range(epochs):
+# #     running_loss = 0
+# #     for images, labels in trainloader:
+# #         optimizer.zero_grad()
+# #         outputs = model(images)
+# #         loss = criterion(outputs, labels)
+# #         loss.backward()
+# #         optimizer.step()
+# #         running_loss += loss.item()
 
-#         print(f'Epoch: {e+1} \t Training Loss: {running_loss / len(trainloader)}')
+# #         print(f'Epoch: {e+1} \t Training Loss: {running_loss / len(trainloader)}')
 
 # for e in range(epochs):
 #     running_loss = 0
@@ -76,3 +77,23 @@ class OtitisMediaClassifier(torch.nn.Module):
 
 
 #         print(f'Epoch: {e+1} \t Training Loss: {running_loss:.6f} ')
+#2.modellings
+class Model(nn.Module):
+    def __init__(self):
+           super().__init__()
+           
+           self.conv=nn.Conv2d(3,3,kernel_size=3,padding=1)
+           self.max_pool=nn.MaxPool2d(kernel_size=2)
+           self.conv_1=nn.Conv2d(3,1,kernel_size=3,padding=1)
+           self.linear=nn.Linear(1*32*32,4)
+
+    def forward(self,x):
+        x=self.conv(x)
+        x=self.max_pool(x)
+        x=self.conv(x)
+        x=self.max_pool(x)
+        x=self.conv_1(x)
+        x=self.max_pool(x)
+        x=self.linear(x.view(1,-1))
+        return x
+
