@@ -4,9 +4,10 @@ data
 # models
 *.pkl
 .vscode
+artifacts
 
 __pycache__/
-*.pyc
+
 
 
 
