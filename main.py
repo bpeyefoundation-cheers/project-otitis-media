@@ -8,10 +8,24 @@ from torchvision import transforms as T
 from torch.utils.data import DataLoader
 from models.CustomNN import Model , OtitisMediaClassifier
 import matplotlib.pyplot as plt
-
+from uuid import uuid4
+import os
+from datetime import datetime
 
 
 if __name__ == "__main__":
+
+    #create folder
+    
+    #get the current date and time
+    dt = datetime.now()
+
+    #format the date and time with custom seperators
+    format_dt = dt.strftime("%Y-%m-%d-%H-%M-%S")
+    folder_name = f"run-{format_dt}"
+    os.mkdir(f"artifacts/{folder_name}")
+    print(f"Folder name: {folder_name}")
+
     SEED = 42
     torch.manual_seed(SEED)
     BATCH_SIZE =16
@@ -42,6 +56,7 @@ if __name__ == "__main__":
     epochwise_val_losses = []
     epochwise_val_acc = []
     epochwise_train_acc = []
+    best_acc = 0
     for epoch in range(EPOCHS):
         train_running_loss = 0
         val_running_loss = 0
@@ -98,6 +113,13 @@ if __name__ == "__main__":
             val_running_accuracy += acc.item()
 
         avg_val_accuracy = val_running_accuracy / len(val_dataloader)
+        
+        if best_acc<avg_val_accuracy:
+            best_acc = avg_val_accuracy
+            torch.save(model.state_dict(), f"artifacts/{folder_name}/best_model.pth")
+        
+
+
           
 
         avg_train_loss = train_running_loss/ len(train_data_loader)
@@ -109,13 +131,30 @@ if __name__ == "__main__":
 
         
         print(f"Epoch {epoch} \t Train Loss : {avg_train_loss:.3f} \t Val loss : {avg_val_loss:.2f} \t Val Accuracy:{avg_val_accuracy:.2f} \t Train Accuracy:{avg_train_accuracy:.2f}") 
+
+
+        # torch.save(model.state_dict(), f"artifacts/{epoch}_model.pt")
+        checkpoint_name = f"artifacts/{folder_name}/ckpt-{model.__class__.__name__}-val-acc-{avg_val_accuracy:.2f}-epoch={epoch}"
+        checkpoint = {
+            "epoch" : epoch,
+            "model_state_dict" :model.state_dict(),
+            "optimizer_state_dict" : optimizer.state_dict(),
+            "train_loss" : avg_train_loss,
+            "val_loss" : avg_val_loss,
+            "train_acc" : avg_train_accuracy,
+            "val_acc" : avg_val_accuracy
+
+        }
+        torch.save(checkpoint, checkpoint_name)
+        
+    print("Maximum Accuracy", best_acc)
     
 
     #save the model
      
-    torch.save(model.state_dict(), "artifacts/first_model.pt")
+    # torch.save(model.state_dict(), "artifacts/first_model.pt")
     
-    torch.save(model, "atifacts/first_model_1.pt")
+    # torch.save(model, "artifacts/first_model_1.pt")
 
 
     #     #plot the losses
