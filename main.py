@@ -12,6 +12,7 @@ import numpy as np
 import os
 from uuid import uuid4
 from datetime import datetime  
+from torch.utils.tensorboard import SummaryWriter
         
 #training
 
@@ -19,7 +20,7 @@ if __name__=="__main__":
     best_val_accurcy=0
     SEED=42
     torch.manual_seed(SEED)
-    BATCH_SIZE=16
+    BATCH_SIZE=8
     #create folder
     #get the current date and time
     dt=datetime.now()
@@ -30,6 +31,9 @@ if __name__=="__main__":
 
     os.mkdir(f"artifacts/{folder_name}")
     print(f"folder name:{folder_name}")
+
+    #create tensorboard writer
+    writer=SummaryWriter(log_dir=f"artifacts/{folder_name}/tensorboard_logs")
     #prepare dataset
     train_csv_path=r"data\train.csv"
     val_csv_path=r"data\test.csv"
@@ -70,6 +74,7 @@ if __name__=="__main__":
     epochwise_train_accuracy=[]
 
     for epoch in range(EPOCHS):
+        
         train_running_loss=0
         val_running_loss=0
         train_running_accuracy=0
@@ -129,21 +134,45 @@ if __name__=="__main__":
           
         avg_train_loss=train_running_loss/len(train_data_loader)
         avg_val_loss=val_running_loss/len(val_data_loader)
+        
+
+
 
         avg_val_running_accuracy=val_running_accuracy/len(val_data_loader)
         avg_train_running_accuracy=train_running_accuracy/len(train_data_loader)
 
-        if avg_val_running_accuracy>best_val_accurcy:
-           best_val_accurcy=avg_val_running_accuracy
-           torch.save(model.state_dict(),f"artifacts/{folder_name}/best_model.pth")
+        # if avg_val_running_accuracy>best_val_accurcy:
+        #    best_val_accurcy=avg_val_running_accuracy
+        #    torch.save(model.state_dict(),f"artifacts/{folder_name}/best_model.pth")
 
+        #log to tensorboard
+        writer.add_scalar("Loss/Train",avg_train_loss,epoch)
+        writer.add_scalar("Loss/val",avg_val_loss,epoch)
+        writer.add_scalar("accuracy/train",avg_train_running_accuracy,epoch)
+        writer.add_scalar("accuracy/val",avg_val_running_accuracy,epoch)
 
+              
+           
         epochwise_train_loss.append(avg_train_loss)
         epochwise_val_loss.append(avg_val_loss)
 
         epochwise_val_accuracy.append(avg_val_running_accuracy)
         epochwise_train_accuracy.append(avg_train_running_accuracy)
-        
+        if len(epochwise_val_accuracy)>=6:
+          avg_epochwise_val_accuracy_for_first_5epoch=np.mean(epochwise_val_accuracy[-5:])
+          print(avg_epochwise_val_accuracy_for_first_5epoch)
+          avg_epochwise_val_accuracy_for_last_5epoch=np.mean(epochwise_val_accuracy[-6:-1])
+          print(avg_epochwise_val_accuracy_for_last_5epoch)
+          diff=avg_epochwise_val_accuracy_for_first_5epoch-avg_epochwise_val_accuracy_for_last_5epoch
+          print(f"diff:{diff:.3f}")
+          if diff<0.001:
+            break
+
+
+
+        # if  epochwise_val_accuracy in range[-5:]:
+        #    avg_epochwise_val_accuracy=np.mean(epochwise_val_accuracy)
+
         
         print(f"Epoch {epoch} Train_Loss:{avg_train_loss:.3f} \t Val Loss:{avg_val_loss:.3f}  \t Tain Accuracy:{avg_train_running_accuracy:.2f}  \t Val Accuracy:{avg_val_running_accuracy:.2f}")
         checkpoint_name=f"artifacts/{folder_name}/ckpt-{model.__class__.__name__}-val_acc-{avg_val_running_accuracy:.2f}-epoch-{epoch}.pth"
