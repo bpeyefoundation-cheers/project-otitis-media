@@ -11,6 +11,8 @@ import matplotlib.pyplot as plt
 from uuid import uuid4
 import os
 from datetime import datetime
+import numpy as np
+from torch.utils.tensorboard import SummaryWriter
 
 
 if __name__ == "__main__":
@@ -26,9 +28,13 @@ if __name__ == "__main__":
     os.mkdir(f"artifacts/{folder_name}")
     print(f"Folder name: {folder_name}")
 
+    #create a tensorboard writer
+
+    writer = SummaryWriter(log_dir = f"artifacts/{folder_name}/tensorboard_logs")
+
     SEED = 42
     torch.manual_seed(SEED)
-    BATCH_SIZE =16
+    BATCH_SIZE =8
     train_csv_path = r"data\train.csv"
     val_csv_path = r"data\tests.csv"
 
@@ -49,7 +55,7 @@ if __name__ == "__main__":
 
     #train
     LR = 0.000001
-    EPOCHS = 10
+    EPOCHS = 12
     criterion = nn.NLLLoss()
     optimizer = torch.optim.Adam(model.parameters() , lr = LR)
     epochwise_train_losses = []
@@ -116,7 +122,7 @@ if __name__ == "__main__":
         
         if best_acc<avg_val_accuracy:
             best_acc = avg_val_accuracy
-            torch.save(model.state_dict(), f"artifacts/{folder_name}/best_model.pth")
+            # torch.save(model.state_dict(), f"artifacts/{folder_name}/best_model.pth")
         
 
 
@@ -128,6 +134,34 @@ if __name__ == "__main__":
         epochwise_val_losses.append(avg_val_loss)
         epochwise_val_acc.append(avg_val_accuracy)
         epochwise_train_acc.append(avg_train_accuracy)
+        
+        #log to tensrboard
+        writer.add_scalar("loss/train", avg_train_loss, epoch)
+        writer.add_scalar("loss/val", avg_val_loss, epoch)
+        writer.add_scalar("accuracy/train", avg_train_accuracy, epoch)
+        writer.add_scalar("accuracy/val", avg_val_accuracy, epoch)
+
+        
+        #early stopping
+
+        if len(epochwise_val_acc) >= 6 :
+            last_5_elements1 = epochwise_val_acc[-5:]
+            acc_avg1 = np.mean(last_5_elements1)
+            print("average of last 5 elements : ", acc_avg1)
+            last_5_elements2 = epochwise_val_acc[-6 :-1]
+            acc_avg2 = np.mean(last_5_elements2)
+            print("average of 2nd last 5 elements : ",acc_avg2)
+
+            difference = acc_avg1 - acc_avg2
+            print("differences : ", difference)
+            if difference < 0.001 :
+                break
+
+        
+
+            
+
+            
 
         
         print(f"Epoch {epoch} \t Train Loss : {avg_train_loss:.3f} \t Val loss : {avg_val_loss:.2f} \t Val Accuracy:{avg_val_accuracy:.2f} \t Train Accuracy:{avg_train_accuracy:.2f}") 
@@ -145,9 +179,12 @@ if __name__ == "__main__":
             "val_acc" : avg_val_accuracy
 
         }
-        torch.save(checkpoint, checkpoint_name)
+        # torch.save(checkpoint, checkpoint_name)
         
-    print("Maximum Accuracy", best_acc)
+        
+
+        
+    # print("Maximum Accuracy", best_acc)
     
 
     #save the model
