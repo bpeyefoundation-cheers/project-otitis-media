@@ -1,19 +1,19 @@
 #1.prepare datasets
-from torch.utils.data import Dataset
-import torch.nn as nn
-import torch
-from torchvision import transforms as T
-from datasets.image_datasets import ImageDataset
-from torch.utils.data import DataLoader
-from models.CustomNN import Model,OtitisMediaClassifier
-import torch.nn.functional as F
+import os
+from datetime import datetime
+from uuid import uuid4
+
 import matplotlib.pyplot as plt
 import numpy as np
-import os
-from uuid import uuid4
-from datetime import datetime  
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from datasets.image_datasets import ImageDataset
+from models.CustomNN import Model, OtitisMediaClassifier
+from torch.utils.data import DataLoader, Dataset
 from torch.utils.tensorboard import SummaryWriter
-        
+from torchvision import transforms as T
+
 #training
 
 if __name__=="__main__":
@@ -95,23 +95,15 @@ if __name__=="__main__":
             train_running_loss+=loss.item()
             loss.backward()
             optimizer.step()
-            # # calculate train_accuracy
-            # preds=torch.argmax(model_out,dim=1)
-            # accuracy=(preds==labels).float().mean()
-            # val_running_accuracy+=accuracy.item()
-            
+            # calculate train_accuracy
+            preds=torch.argmax(model_out,dim=1)
+            accuracy=(preds==labels).float().mean()
+            train_running_accuracy+=accuracy.item()
+              
             
           #validation
         model.eval()
-        for images,labels in train_data_loader:
-          
-          # optimizer.zero_grad()
-          model_out=model(images)
-          model_out=F.log_softmax(model_out,dim=1)
-          # calculate val_accuracy
-          preds=torch.argmax(model_out,dim=1)
-          accuracy=(preds==labels).float().mean()
-          train_running_accuracy+=accuracy.item()
+        
 
         for images,labels in val_data_loader:
           
@@ -141,9 +133,9 @@ if __name__=="__main__":
         avg_val_running_accuracy=val_running_accuracy/len(val_data_loader)
         avg_train_running_accuracy=train_running_accuracy/len(train_data_loader)
 
-        # if avg_val_running_accuracy>best_val_accurcy:
-        #    best_val_accurcy=avg_val_running_accuracy
-        #    torch.save(model.state_dict(),f"artifacts/{folder_name}/best_model.pth")
+        if avg_val_running_accuracy>best_val_accurcy:
+           best_val_accurcy=avg_val_running_accuracy
+           torch.save(model.state_dict(),f"artifacts/{folder_name}/best_model.pth")
 
         #log to tensorboard
         writer.add_scalar("Loss/Train",avg_train_loss,epoch)
@@ -170,8 +162,6 @@ if __name__=="__main__":
 
 
 
-        # if  epochwise_val_accuracy in range[-5:]:
-        #    avg_epochwise_val_accuracy=np.mean(epochwise_val_accuracy)
 
         
         print(f"Epoch {epoch} Train_Loss:{avg_train_loss:.3f} \t Val Loss:{avg_val_loss:.3f}  \t Tain Accuracy:{avg_train_running_accuracy:.2f}  \t Val Accuracy:{avg_val_running_accuracy:.2f}")
