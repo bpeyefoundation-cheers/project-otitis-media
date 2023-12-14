@@ -8,11 +8,12 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from datasets.image_datasets import ImageDataset
-from models.CustomNN import Model, OtitisMediaClassifier
 from torch.utils.data import DataLoader, Dataset
 from torch.utils.tensorboard import SummaryWriter
 from torchvision import transforms as T
+
+from datasets.image_datasets import ImageDataset
+from models.CustomNN import Model, OtitisMediaClassifier
 
 #training
 
@@ -40,15 +41,15 @@ if __name__=="__main__":
     transforms=T.Compose([T.Resize((256,256)),T.ToTensor()])
     train_dataset=ImageDataset(csv_path=train_csv_path,transforms=transforms)
     train_data_loader=DataLoader(
-         train_dataset,
-         batch_size=BATCH_SIZE,
-         shuffle=True
+        train_dataset,
+        batch_size=BATCH_SIZE,
+        shuffle=True
     )
     val_dataset=ImageDataset(csv_path=val_csv_path,transforms=transforms)
     val_data_loader=DataLoader(
-         val_dataset,
-         batch_size=BATCH_SIZE,
-         shuffle=True
+        val_dataset,
+        batch_size=BATCH_SIZE,
+        shuffle=True
     )
     #print(next(iter(val_data_loader)))
 
