@@ -8,17 +8,6 @@ TEST_DIR="data\Datos\Testing"
 
 train_images=glob.glob(f"{TRAIN_DIR}/**/*.jpg")
 test_images=glob.glob(f"{TEST_DIR}/**/*.jpg")
-for i in train_images:
-    label=i.split("\\")[3]
-    print(label)
-
-
-# train_data = pd.DataFrame({'image_path': train_images,'labels':labels})
-
-# train_data.to_csv(os.path.join(BASE_DIR, 'train.csv'), index=False)
-
-
-
 
 # import csv
 # def list_files(dir, file_extension):
