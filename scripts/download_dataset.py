@@ -14,7 +14,11 @@ if not shutil.which("gdown"):
 file_id = "1Rz3mV7xTxC7rapDAxoozrLQKiHlTBRfT"
 
 # Set the destination folder
+<<<<<<< HEAD
 destination_folder = "data"
+=======
+destination_folder = "datasets"
+>>>>>>> origin
 
 # Create the destination folder if it doesn't exist
 if not os.path.exists(destination_folder):
@@ -32,4 +36,8 @@ subprocess.run(["unzip", f"{destination_folder}/file.zip", "-d", destination_fol
 print("Removing the zip file...")
 os.remove(f"{destination_folder}/file.zip")
 
+<<<<<<< HEAD
 print("File downloaded, unzipped, and zip file removed successfully.")
+=======
+print("File downloaded, unzipped, and zip file removed successfully.")
+>>>>>>> origin
