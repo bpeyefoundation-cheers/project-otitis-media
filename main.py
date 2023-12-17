@@ -1,4 +1,5 @@
 #1.prepare datasets
+#training
 import os
 from datetime import datetime
 from uuid import uuid4
@@ -8,14 +9,11 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from datasets.image_datasets import ImageDataset
+from models.CustomNN import Model, OtitisMediaClassifier
 from torch.utils.data import DataLoader, Dataset
 from torch.utils.tensorboard import SummaryWriter
 from torchvision import transforms as T
-
-from datasets.image_datasets import ImageDataset
-from models.CustomNN import Model, OtitisMediaClassifier
-
-#training
 
 if __name__=="__main__":
     best_val_accurcy=0
@@ -41,15 +39,15 @@ if __name__=="__main__":
     transforms=T.Compose([T.Resize((256,256)),T.ToTensor()])
     train_dataset=ImageDataset(csv_path=train_csv_path,transforms=transforms)
     train_data_loader=DataLoader(
-        train_dataset,
-        batch_size=BATCH_SIZE,
-        shuffle=True
+         train_dataset,
+         batch_size=BATCH_SIZE,
+         shuffle=True
     )
     val_dataset=ImageDataset(csv_path=val_csv_path,transforms=transforms)
     val_data_loader=DataLoader(
-        val_dataset,
-        batch_size=BATCH_SIZE,
-        shuffle=True
+         val_dataset,
+         batch_size=BATCH_SIZE,
+         shuffle=True
     )
     #print(next(iter(val_data_loader)))
 
@@ -135,8 +133,8 @@ if __name__=="__main__":
         avg_train_running_accuracy=train_running_accuracy/len(train_data_loader)
 
         if avg_val_running_accuracy>best_val_accurcy:
-           best_val_accurcy=avg_val_running_accuracy
-           torch.save(model.state_dict(),f"artifacts/{folder_name}/best_model.pth")
+          best_val_accurcy=avg_val_running_accuracy
+          torch.save(model.state_dict(),f"artifacts/{folder_name}/best_model.pth")
 
         #log to tensorboard
         writer.add_scalar("Loss/Train",avg_train_loss,epoch)
@@ -145,7 +143,7 @@ if __name__=="__main__":
         writer.add_scalar("accuracy/val",avg_val_running_accuracy,epoch)
 
               
-           
+        
         epochwise_train_loss.append(avg_train_loss)
         epochwise_val_loss.append(avg_val_loss)
 
