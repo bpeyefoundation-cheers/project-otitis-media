@@ -122,7 +122,7 @@ if __name__ == "__main__":
         
         if best_acc<avg_val_accuracy:
             best_acc = avg_val_accuracy
-            # torch.save(model.state_dict(), f"artifacts/{folder_name}/best_model.pth")
+            torch.save(model.state_dict(), f"artifacts/{folder_name}/best_model.pth")
         
 
 
@@ -179,7 +179,7 @@ if __name__ == "__main__":
             "val_acc" : avg_val_accuracy
 
         }
-        # torch.save(checkpoint, checkpoint_name)
+        torch.save(checkpoint, checkpoint_name)
         
         
 
