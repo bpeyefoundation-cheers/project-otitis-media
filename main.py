@@ -112,8 +112,6 @@ if __name__=="__main__":
 
           loss=criterion(model_out,labels)
           val_running_loss+=loss.item()
-          loss.backward()
-          
           # calculate val_accuracy
           preds=torch.argmax(model_out,dim=1)
           accuracy=(preds==labels).float().mean()
