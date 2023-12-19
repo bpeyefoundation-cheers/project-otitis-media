@@ -2,7 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+models/*.pkl
 # C extensions
 *.so
 
@@ -164,4 +164,4 @@ data
 artifacts
 __pychache__/
 # **/*.pkl
-models/*.pkl
+
