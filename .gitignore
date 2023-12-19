@@ -163,3 +163,5 @@ data
 # models
 artifacts
 __pychache__/
+# **/*.pkl
+models/*.pkl

@@ -29,8 +29,10 @@ transforms= T.Compose([
 
 def predict(inp):
   inp = transforms(inp).unsqueeze(0)
+
   with torch.no_grad():
     prediction = torch.nn.functional.softmax(model(inp)[0], dim=0)
+    
     confidences = {labels[i]: float(prediction[i]) for i in range(4)}
   return confidences
 
