@@ -1,13 +1,16 @@
+import gradio as gr
+import requests
 import torch
+import torch.nn.functional as F
 from PIL import Image
 from torchvision import transforms
-import torch.nn.functional as F
-import requests
-from models.CustomNN import OtitisMediaClassifier  
-import gradio as gr
 
-checkpoint_path = r"artifacts\run-2023-12-18-14-53-15\ckpt-OtitisMediaClassifier-best_val_acc-0.85-epoch-7.pth"
+from models.CustomNN import OtitisMediaClassifier
+
+checkpoint_path = r"artifacts\run-2023-11-30-17-37-02\ckpt-OtitisMediaClassifier-best_val_acc-0.88-epoch-8.pth"
 checkpoint = torch.load(checkpoint_path)
+print(checkpoint.keys())
+
 transform=transforms.Compose([transforms.Resize((256,256)),transforms.ToTensor(),])
 # Instantiate the model
 model = OtitisMediaClassifier(img_size=256, num_channels=3, num_labels=4)
@@ -30,5 +33,5 @@ def predict(inp):
 gr.Interface(
     fn=predict,
     inputs=gr.Image(type="pil"),
-    outputs=gr.labels(num_top_classes=4), 
+    outputs=gr.Label(num_top_classes=4),
     examples=[r"data\middle-ear-dataset\Normal\n2.jpg", "data\middle-ear-dataset\myringosclerosis\mi1.jpg"]).launch()
