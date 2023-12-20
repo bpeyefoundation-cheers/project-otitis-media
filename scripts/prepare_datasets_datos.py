@@ -15,8 +15,8 @@ test_images=glob.glob(f"{TEST_DIR}/**/*.jpg")
 # print(test_images)
 
 
-train_labels = [image_path.split("\\")[3] for image_path in train_images]
-test_labels = [image_path.split("\\")[3] for image_path in test_images]
+train_labels = [image_path.split("\\")[-2] for image_path in train_images]
+test_labels = [image_path.split("\\")[-2] for image_path in test_images]
 
 # print(test_labels)
 

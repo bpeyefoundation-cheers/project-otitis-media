@@ -84,6 +84,12 @@ def get_prediction(model_checkpoint, test_file , out_dir):
 
 # display_grid(image_dir=DATA_DIR, images = test_files , actual_labels= test_labels  , predicted_label= y_pred_labels, n_rows= 4 , n_cols= 3, title= 'Otitis_media'  )
 
+#evaluation in gradio
+
+
+    
+    
+
 
 if __name__ == "__main__":
     configs = config_loader("configs/test.yaml")["evaluation"]
