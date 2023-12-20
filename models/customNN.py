@@ -48,3 +48,4 @@ class Model(nn.Module):
          x= self.Linear(x.view(1, -1))
     
          return x 
+                                                                                
