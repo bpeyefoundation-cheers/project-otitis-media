@@ -39,15 +39,15 @@ if __name__=="__main__":
     transforms=T.Compose([T.Resize((256,256)),T.ToTensor()])
     train_dataset=ImageDataset(csv_path=train_csv_path,transforms=transforms)
     train_data_loader=DataLoader(
-         train_dataset,
-         batch_size=BATCH_SIZE,
-         shuffle=True
+        train_dataset,
+        batch_size=BATCH_SIZE,
+        shuffle=True
     )
     val_dataset=ImageDataset(csv_path=val_csv_path,transforms=transforms)
     val_data_loader=DataLoader(
-         val_dataset,
-         batch_size=BATCH_SIZE,
-         shuffle=True
+        val_dataset,
+        batch_size=BATCH_SIZE,
+        shuffle=True
     )
     #print(next(iter(val_data_loader)))
 
@@ -112,6 +112,8 @@ if __name__=="__main__":
 
           loss=criterion(model_out,labels)
           val_running_loss+=loss.item()
+          
+          
           # calculate val_accuracy
           preds=torch.argmax(model_out,dim=1)
           accuracy=(preds==labels).float().mean()
