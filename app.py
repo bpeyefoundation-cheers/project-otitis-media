@@ -12,7 +12,7 @@ from torchvision import transforms
 
 from models.CustomNN import OtitisMediaClassifier
 
-checkpoint_path = r"artifacts\run-2023-11-30-17-37-02\ckpt-OtitisMediaClassifier-best_val_acc-0.88-epoch-8.pth"
+checkpoint_path = r"artifacts\run-2023-12-18-14-53-15\ckpt-OtitisMediaClassifier-best_val_acc-0.85-epoch-7.pth"
 checkpoint = torch.load(checkpoint_path)
 
 # print(checkpoint.keys())
@@ -33,17 +33,13 @@ import os
 # print(os.getcwd())
 
 
-test_csv_path = os.path.join(r"C:\\Users\\Dell\\Desktop\\project1\\project-otitis-media", "data", "test.csv")
+test_csv_path = os.path.join(r"C:\\Users\\Dell\\Desktop\\projects\\project-otitis-media", "data", "test.csv")
 
 test_df = pd.read_csv(test_csv_path)
-
-
 
 test_set = test_df['file'].tolist()
 
 true_labels = test_df['label'].tolist()
-
-
 
 example_file_paths = []
 
@@ -52,7 +48,7 @@ classes_for_testing = ['aom', 'csom', 'myringosclerosis', 'Normal']
 images_per_class = 2  
 
 for class_label in classes_for_testing:
-    class_folder = os.path.join(r"C:\Users\Dell\Desktop\project1\project-otitis-media\data", "middle-ear-dataset", class_label)
+    class_folder = os.path.join(r"C:\Users\Dell\Desktop\projects\project-otitis-media\data", "middle-ear-dataset", class_label)
     class_images = os.listdir(class_folder)[:images_per_class]
     class_paths = [os.path.join(class_folder, filename) for filename in class_images]
     example_file_paths.extend(class_paths)

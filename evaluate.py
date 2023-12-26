@@ -30,7 +30,8 @@ def get_prediction(model_checkpoint,test_file,out_dir):
     save_prediction_as_csv(test_files,y_test,y_pred,outfile)
     print("saved")
 
-    
+
+
 
 # # Compute accuracy
 # acc = accuracy(y_test, y_pred)
