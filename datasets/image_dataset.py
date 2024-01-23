@@ -3,8 +3,7 @@ from torch.utils.data import Dataset, DataLoader
 from torch import nn
 
 # from models.customNN import FirstNeural
-from utils.io import read_as_csv
-from utils.pre_processing import label_to_index, image_transforms, read_image
+
 import numpy as np
 from os.path import join
 from PIL import Image
