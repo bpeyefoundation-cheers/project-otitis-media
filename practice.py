@@ -1,5 +1,6 @@
 import torch 
 from torch import nn 
+from torch.nn import ReLU
 
 
 class Model(nn.Module):
@@ -16,9 +17,13 @@ class Model(nn.Module):
         
     def forward(self, x):
         x = self.conv(x)
+        nn.ReLU()
         x = self.max_pool(x)
+        
         x= self.conv1(x)
+        nn.ReLU()
         x= self.max_pool(x)
+        
         x = self.conv3(x)
         x= torch.flatten(x, start_dim=1)
         
